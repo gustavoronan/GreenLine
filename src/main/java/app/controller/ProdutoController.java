@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +39,18 @@ public class ProdutoController {
 		try {
 			
 			List<Produto> produto= produtoService.listAll();
+			return new ResponseEntity<>(produto, HttpStatus.CREATED);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findById/{idProduto}")
+	public ResponseEntity<Produto> findById(@PathVariable long idProduto) {
+		try {
+			
+			Produto produto= produtoService.findById(idProduto);
 			return new ResponseEntity<>(produto, HttpStatus.CREATED);
 			
 		} catch (Exception e) {

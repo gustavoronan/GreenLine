@@ -27,4 +27,9 @@ public class ProdutoService {
 		return produtoRepository.findById(idProduto).get();
 	}
 	
+	public String update(long idProduto, Produto produto) {
+		produto.setIdProduto(idProduto);
+		produtoRepository.save(produto);
+		return "O produto " + produto.getNomeProduto() + " foi atualizado com sucesso!";
+	}
 }

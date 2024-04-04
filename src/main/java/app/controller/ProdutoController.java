@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Produto;
 import app.service.ProdutoService;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RequestMapping("/api/produto")
 @RestController
@@ -56,5 +58,19 @@ public class ProdutoController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@PutMapping("update/{idProduto}") 
+	public ResponseEntity<String> update(@PathVariable Long idProduto, @RequestBody Produto produto) {
+		
+		try {
+			
+			String mensagem = produtoService.update(idProduto, produto);
+			return new ResponseEntity<String>(mensagem, HttpStatus.ACCEPTED);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<>("Deu Ruim", HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 }

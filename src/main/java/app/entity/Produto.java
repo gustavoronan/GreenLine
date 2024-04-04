@@ -19,6 +19,6 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idProduto;
 	private String nomeProduto;
-	private String valorProduto;
+	private double valorProduto;
 	private String descricaoProduto;
 }

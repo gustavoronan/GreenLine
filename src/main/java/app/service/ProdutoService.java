@@ -1,5 +1,7 @@
 package app.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,10 @@ public class ProdutoService {
 	public String save(Produto produto) {
 		produtoRepository.save(produto);
 		return produto.getNomeProduto() + " salvo com sucesso!";
+	}
+	
+	public List<Produto> listAll() {
+		return produtoRepository.findAll();
 	}
 	
 }

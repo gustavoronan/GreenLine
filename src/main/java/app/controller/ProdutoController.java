@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,6 +67,20 @@ public class ProdutoController {
 		try {
 			
 			String mensagem = produtoService.update(idProduto, produto);
+			return new ResponseEntity<String>(mensagem, HttpStatus.ACCEPTED);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<>("Deu Ruim", HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+	
+	@DeleteMapping("delete/{idProduto}") 
+	public ResponseEntity<String> delete(@PathVariable Long idProduto) {
+		
+		try {
+			
+			String mensagem = produtoService.delete(idProduto);
 			return new ResponseEntity<String>(mensagem, HttpStatus.ACCEPTED);
 			
 		} catch (Exception e) {

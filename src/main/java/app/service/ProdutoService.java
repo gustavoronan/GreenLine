@@ -32,4 +32,9 @@ public class ProdutoService {
 		produtoRepository.save(produto);
 		return "O produto " + produto.getNomeProduto() + " foi atualizado com sucesso!";
 	}
+	
+	public String delete(long idProduto) {
+		produtoRepository.deleteById(idProduto);
+		return "Produto deletado com sucesso!";
+	}
 }

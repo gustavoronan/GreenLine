@@ -22,7 +22,5 @@ public class Cliente {
   private String nomeCliente;
   private String telefoneCliente;
   private String enderecoCliente;
-  private String emailCliente;
-  private String senhaCliente;
   
 }

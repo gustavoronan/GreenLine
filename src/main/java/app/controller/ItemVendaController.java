@@ -53,7 +53,7 @@ public class ItemVendaController {
 
 	}
 
-	@GetMapping("/findById/{idCliente}")
+	@GetMapping("/findById/{idItemVenda}")
 	public ResponseEntity <ItemVenda> findById(@PathVariable long idItemVenda){
 
 		try {
@@ -66,7 +66,7 @@ public class ItemVendaController {
 
 	}
 	
-	@PutMapping("/update/{idCliente}")
+	@PutMapping("/update/{idItemVenda}")
 	public ResponseEntity<String> update(@RequestBody ItemVenda itemVenda, @PathVariable long idItemVenda){
 
 		try {
@@ -80,7 +80,7 @@ public class ItemVendaController {
 
 	}
 	
-	@DeleteMapping("/delete/{idCliente}")
+	@DeleteMapping("/delete/{idItemVenda}")
 	public ResponseEntity<String> delete(@PathVariable long idItemVenda){
 
 		try {

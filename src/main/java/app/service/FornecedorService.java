@@ -52,9 +52,9 @@ public class FornecedorService {
         //-- Consulta ao SGDB (Read)--
 
 
-        public List<Fornecedor> findByNomeFornecedor(String nomeFornecedor){
-            return this.fornecedorRepository.findByNomeForne(nomeFornecedor);
-        }
+        //public List<Fornecedor> findByNomeFornecedor(String nomeFornecedor){
+          //  return this.fornecedorRepository.findByNomeForne(nomeFornecedor);
+       // }
 
 
     }

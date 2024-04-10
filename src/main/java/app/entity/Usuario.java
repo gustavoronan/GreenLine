@@ -20,7 +20,8 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idUsuario;
-	private String historico;
+	private String emailUsuario;
+	private String senhaUsuario;
 	
 
 

@@ -11,6 +11,8 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import app.entity.Fornecedor;
 import app.repository.FornecedorRepository;
 
+@SpringBootTest
 public class FornecedorControllerTest {
 
 	@Autowired
@@ -48,14 +51,14 @@ public class FornecedorControllerTest {
         @Test
         void cenario01() {
 
-            ResponseEntity<List<Fornecedor>> listaFuncionario = this.fornecedorController.listAll();
-            assertEquals(2, listaFuncionario.getBody().size());    
+            ResponseEntity<List<Fornecedor>> listFornecedor = this.fornecedorController.listAll();
+            assertEquals(2, listFornecedor.getBody().size());    
         }
 
 
         @Test
         void testSave() {
-            Fornecedor novoFornecedor = new Fornecedor (5 ,"988765", "Maquito", "gabrielexxond@gmail.com");
+            Fornecedor novoFornecedor = new Fornecedor (3, "234525", "Lucas", "cdefgdi@gmail.com");
 
 
             ResponseEntity<String> response = this.fornecedorController.save(novoFornecedor);
@@ -71,7 +74,7 @@ public class FornecedorControllerTest {
             ResponseEntity<Fornecedor> response = this.fornecedorController.findById(1L);
 
             assertEquals(HttpStatus.OK, response.getStatusCode());
-            assertEquals("GHIABC", response.getBody().getNomeFornecedor());
+            assertEquals("Joao", response.getBody().getNomeFornecedor());
 
         }
 
@@ -97,7 +100,7 @@ public class FornecedorControllerTest {
     	void testUpdate() {
     		
     		Fornecedor fornecedorExistente = new Fornecedor(6, "334525", "Gustavo", "dsafasadasd@gmail.com");
-    		Fornecedor fornecedorAtualizada = new Fornecedor(7, "334525", "Gustavo", "dsafasadasd@gmail.com");
+    		Fornecedor fornecedorAtualizada = new Fornecedor(7, "23543", "Gabriel", "gasolina@gmail.com");
     	    long idFornecedor = 1L;
     		
     		ResponseEntity<String> response = fornecedorController.update(fornecedorAtualizada, idFornecedor);

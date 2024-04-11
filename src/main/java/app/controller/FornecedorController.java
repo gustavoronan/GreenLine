@@ -80,7 +80,7 @@ public class FornecedorController {
 
         }
 
-        @DeleteMapping("/delete/{idFuncionario}")
+        @DeleteMapping("/delete/{idFornecedor}")
         public ResponseEntity<String> delete(@PathVariable long idFornecedor){
 
             try {

@@ -16,11 +16,11 @@ import lombok.Setter;
 @NoArgsConstructor
 
 
-public class ItemVenda {
+public class ItemCarrinho {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idItemVenda; // se trata de um "carrinho" uma serie de produtos dentro de um pedido
+	private long idItem; // se trata de um "carrinho" uma serie de produtos dentro de um pedido
 	private double valorUnitario;
 	private int quantProd;
 	

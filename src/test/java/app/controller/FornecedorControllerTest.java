@@ -1,6 +1,7 @@
 package app.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -11,7 +12,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,8 @@ public class FornecedorControllerTest {
    
     @MockBean
     FornecedorRepository fornecedorRepository;
+    
+
     
     @BeforeEach
     void setup () {
@@ -65,6 +68,21 @@ public class FornecedorControllerTest {
 
             assertEquals(HttpStatus.CREATED, response.getStatusCode());
            // assertEquals(" Funcionario salvo com sucesso!!", response.getBody());
+
+        }
+        
+        @Test
+        void testSaveNOTOK2() {
+            Fornecedor novoFornecedor = new Fornecedor (3, "", "Sei la", "dasdas@hotmail");
+
+
+            //ResponseEntity<String> response = this.fornecedorController.save(novoFornecedor);
+
+            //assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+            
+            assertThrows(Exception.class, () -> {
+            	this.fornecedorController.save(novoFornecedor);
+            });
 
         }
 

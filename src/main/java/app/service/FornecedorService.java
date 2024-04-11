@@ -19,6 +19,16 @@ public class FornecedorService {
 
         //Create
         public String save(Fornecedor fornecedor) {
+        	
+        	//FORÇANDO A VALIDAÇÃO QUE DEVERIA OCORRER AUTOMATICAMENTE PELA ENTITY
+        	//if(fornecedor.getCnpj() == null)
+        	//	throw new RuntimeException();
+        	
+        	//FORÇANDO A VALIDAÇÃO QUE DEVERIA OCORRER AUTOMATICAMENTE PELA ENTITY
+        //	else if(fornecedor.getCnpj().isBlank())
+        //		throw new RuntimeException();
+        	
+        	
             this.fornecedorRepository.save(fornecedor);
             return fornecedor.getNomeFornecedor()+" Fornecedor salvo com sucesso!!";
         }
@@ -51,10 +61,12 @@ public class FornecedorService {
 
         //-- Consulta ao SGDB (Read)--
 
-
-        //public List<Fornecedor> findByNomeFornecedor(String nomeFornecedor){
-          //  return this.fornecedorRepository.findByNomeForne(nomeFornecedor);
-       // }
-
-
+        public List<Fornecedor> findByNomeFornecedor(String nomeFornecedor){
+            return this.fornecedorRepository.findByNomeFornecedor(nomeFornecedor);
+        }
     }
+
+
+
+
+

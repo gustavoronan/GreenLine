@@ -8,7 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +34,10 @@ public class Usuario {
 		@OneToMany(mappedBy = "usuario")
 		@JsonIgnoreProperties("usuario")
 		private List<Venda> venda;
+		
+		@OneToOne
+		@JoinColumn(name = "cliente_id")  // Define a coluna de chave estrangeira na tabela de Usuario
+		private Cliente cliente;
 
 
 }

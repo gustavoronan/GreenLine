@@ -14,22 +14,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.entity.Venda;
-import app.service.VendaService;
+import app.entity.Carrinho;
+import app.service.CarrinhoService;
 
-@RequestMapping("/api/venda")
+@RequestMapping("/api/carrinho")
 @RestController
-public class VendaController {
+public class CarrinhoController {
 	
 	@Autowired
-	private VendaService vendaService;
+	private CarrinhoService carrinhoService;
 
 	@PostMapping("/save")
-	public ResponseEntity<String> save(@RequestBody Venda venda){
+	public ResponseEntity<String> save(@RequestBody Carrinho carrinho){
 
 		try {
 			
-			String mensagem = this.vendaService.save(venda);
+			String mensagem = this.carrinhoService.save(carrinho);
 			return new ResponseEntity<>(mensagem,HttpStatus.CREATED);	
 			
 		} catch (Exception e) {
@@ -41,10 +41,10 @@ public class VendaController {
 	}
 
 	@GetMapping("/listAll")
-	public ResponseEntity <List<Venda>> listAll(){
+	public ResponseEntity <List<Carrinho>> listAll(){
 
 		try {
-			List<Venda> lista = this.vendaService.listAll();
+			List<Carrinho> lista = this.carrinhoService.listAll();
 			return new ResponseEntity<>(lista, HttpStatus.OK);
 		} catch (Exception e) {			
 			return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);		
@@ -53,12 +53,12 @@ public class VendaController {
 
 	}
 
-	@GetMapping("/findById/{idVenda}")
-	public ResponseEntity <Venda> findById(@PathVariable long idVenda){
+	@GetMapping("/findById/{idCarrinho}")
+	public ResponseEntity <Carrinho> findById(@PathVariable long idCarrinho){
 
 		try {
-			Venda venda = this.vendaService.findById(idVenda);
-			return new ResponseEntity<>(venda, HttpStatus.OK);
+			Carrinho carrinho = this.carrinhoService.findById(idCarrinho);
+			return new ResponseEntity<>(carrinho, HttpStatus.OK);
 		} catch (Exception e) {			
 			return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);		
 
@@ -66,11 +66,11 @@ public class VendaController {
 
 	}
 	
-	@PutMapping("/update/{idVenda}")
-	public ResponseEntity<String> update(@RequestBody Venda venda, @PathVariable long idVenda){
+	@PutMapping("/update/{idCarrinho}")
+	public ResponseEntity<String> update(@RequestBody Carrinho carrinho, @PathVariable long idCarrinho){
 
 		try {
-			String mensagem = this.vendaService.update(venda, idVenda);
+			String mensagem = this.carrinhoService.update(carrinho, idCarrinho);
 			return new ResponseEntity<>(mensagem,HttpStatus.OK);		
 		} catch (Exception e) {
 
@@ -80,11 +80,11 @@ public class VendaController {
 
 	}
 	
-	@DeleteMapping("/delete/{idVenda}")
-	public ResponseEntity<String> delete(@PathVariable long idVenda){
+	@DeleteMapping("/delete/{idCarrinho}")
+	public ResponseEntity<String> delete(@PathVariable long idCarrinho){
 
 		try {
-			String mensagem = this.vendaService.delete(idVenda);
+			String mensagem = this.carrinhoService.delete(idCarrinho);
 			return new ResponseEntity<>(mensagem,HttpStatus.OK);		
 		} catch (Exception e) {
 

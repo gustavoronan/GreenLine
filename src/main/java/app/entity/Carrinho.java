@@ -14,10 +14,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Venda {
+public class Carrinho {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idVenda;
-	private String descricaoVenda;
-	private String valorVenda;
+	private long idCarrinho;
+	private String descricaoCarrinho;
+	private String valorCarrinho;
 }

@@ -43,4 +43,10 @@ public class UsuarioService {
 		this.usuarioRepository.deleteById(idUsuario);
 		return "Cliente deletado";
 	}
+	public List<Usuario> findByEmail(String emailUsuario){
+		return this.usuarioRepository.findByEmail(emailUsuario);
+	}
+	public List<Usuario> findByClienteNome(String clienteNome){
+		return this.usuarioRepository.findByClienteNome(clienteNome);
+	}
 }

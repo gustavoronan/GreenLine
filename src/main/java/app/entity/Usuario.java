@@ -1,9 +1,14 @@
 package app.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +28,10 @@ public class Usuario {
 	private String emailUsuario;
 	private String senhaUsuario;
 	
-
+	//relacao de um cliente para muitas vendas
+		@OneToMany(mappedBy = "usuario")
+		@JsonIgnoreProperties("usuario")
+		private List<Venda> venda;
 
 
 }

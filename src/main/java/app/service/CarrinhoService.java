@@ -40,4 +40,28 @@ public class CarrinhoService {
 		return " Venda deletada";
 	}
 	
+	//consultas DB
+	
+	public List<Carrinho> findByCarrinho(long idCarrinho){
+		Carrinho carrinho = new Carrinho();
+		carrinho.setIdCarrinho(idCarrinho);
+		return this.carrinhoRepository.findByCarrinho(carrinho);
+	}
+	
+	public List<Carrinho> findByProdutoNomeProduto(String nomeProduto){
+		return this.carrinhoRepository.findByProdutoNomeProduto(nomeProduto);
+	}
+	
+	//testar apos merge
+	public List<Carrinho> findByIdCarrinho(long idCarrinho){
+		return this.carrinhoRepository.findByIdCarrinho(idCarrinho);
+	}
+	
+	public List<Carrinho> buscarVendaAcimaValor(double valorCarrinho){
+		return this.carrinhoRepository.buscarVendaAcimaValor(valorCarrinho);
+	}
+	
+	public List<Carrinho> buscarVendaAbaixoValor(double valorCarrinho){
+		return this.carrinhoRepository.buscarVendaAbaixoValor(valorCarrinho);
+	}
 }

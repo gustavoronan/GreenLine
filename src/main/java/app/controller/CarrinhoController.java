@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Carrinho;
@@ -93,4 +94,87 @@ public class CarrinhoController {
 		}
 
 	}
+	
+	//consultas DB
+	
+	@GetMapping("/findByCarrinho")
+    public ResponseEntity<List<Carrinho>> findByCarrinho (@RequestParam long idCarrinho){
+
+        try {
+
+            List<Carrinho> lista = this.carrinhoService.findByCarrinho(idCarrinho);
+            return new ResponseEntity<>(lista, HttpStatus.OK);
+
+        } catch (Exception e) {
+
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+
+        }
+
+    }
+	
+	@GetMapping("/findByNomeProduto")
+	public ResponseEntity<List<Carrinho>> findByProdutoNomeProduto (@RequestParam String nomeProduto){
+		
+		try {
+			
+			List<Carrinho> lista = this.carrinhoService.findByProdutoNomeProduto(nomeProduto);
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			
+		}
+		
+	}
+	
+	@GetMapping("/findByIdCarrinho")
+	public ResponseEntity<List<Carrinho>> findByIdCarrinho (@RequestParam long idCarrinho){
+		
+		try {
+			
+			List<Carrinho> lista = this.carrinhoService.findByIdCarrinho(idCarrinho);
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			
+		}
+		
+	}
+	
+	@GetMapping("/buscarVendaAcimaValor")
+	public ResponseEntity<List<Carrinho>> buscarVendaAcimaValor (@RequestParam double valorCarrinho){
+		
+		try {
+			
+			List<Carrinho> lista = this.carrinhoService.buscarVendaAcimaValor(valorCarrinho);
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			
+		}
+		
+	}
+	
+	@GetMapping("/buscarVendaAbaixoValor")
+	public ResponseEntity<List<Carrinho>> buscarVendaAbaixoValor (@RequestParam double valorCarrinho){
+		
+		try {
+			
+			List<Carrinho> lista = this.carrinhoService.buscarVendaAbaixoValor(valorCarrinho);
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			
+		}
+		
+	}
+	
 }

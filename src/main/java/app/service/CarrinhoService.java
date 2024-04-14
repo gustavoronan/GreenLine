@@ -7,12 +7,25 @@ import org.springframework.stereotype.Service;
 
 import app.entity.Carrinho;
 import app.repository.CarrinhoRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class CarrinhoService {
 
 	@Autowired
 	private CarrinhoRepository carrinhoRepository;
+	
+	public double valorTotalCarrinho(@Valid List<ItemCarrinho> itemCarrinho) {
+		
+		double valorTotal = 0;
+		if(itemCarrinho != null) {
+			for (@Valid ItemCarrinho itemCarrinho : itemCarrinho) {
+				valorTotal += (itemCarrinho.getvalorUnitario() * itemCarrinho.getquantProd());
+			}
+		}
+		return valorTotal;
+		
+	}
 	
 	public String save (Carrinho carrinho) {
 		this.carrinhoRepository.save(carrinho);

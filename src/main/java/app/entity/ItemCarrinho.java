@@ -38,7 +38,7 @@ public class ItemCarrinho {
 	
 	@OneToMany (mappedBy = "itemCarrinho")
 	@JsonIgnoreProperties("itemCarrinho")
-	private List<Produto> produto;
+	private Produto produto;
 	
 	@ManyToOne (cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("itemCarrinho")

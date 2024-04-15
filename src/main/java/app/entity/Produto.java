@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -37,6 +38,10 @@ public class Produto {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idFornecedor")
 	private Fornecedor fornecedor;
+	
+	//DEAN: mapeamento item carrinho adicionado
+	@OneToOne (mappedBy = "produto")
+	private ItemCarrinho itemCarrinho;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(

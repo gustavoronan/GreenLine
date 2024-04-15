@@ -18,7 +18,7 @@ public class ItemCarrinhoService {
 	
 	public double setValor(@Valid Produto produto) {
 		
-		double valorUnitario;
+		double valorUnitario = 0;
 		if (produto !=null) {
 			valorUnitario = produto.getValorProduto();
 		}

@@ -97,37 +97,37 @@ public class CarrinhoController {
 	
 	//consultas DB
 	
-	@GetMapping("/findByCarrinho")
-    public ResponseEntity<List<Carrinho>> findByCarrinho (@RequestParam long idCarrinho){
-
-        try {
-
-            List<Carrinho> lista = this.carrinhoService.findByCarrinho(idCarrinho);
-            return new ResponseEntity<>(lista, HttpStatus.OK);
-
-        } catch (Exception e) {
-
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-
-        }
-
-    }
+//	@GetMapping("/findByCarrinho")
+//    public ResponseEntity<List<Carrinho>> findByCarrinho (@RequestParam long idCarrinho){
+//
+//        try {
+//
+//            List<Carrinho> lista = this.carrinhoService.findByCarrinho(idCarrinho);
+//            return new ResponseEntity<>(lista, HttpStatus.OK);
+//
+//        } catch (Exception e) {
+//
+//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//
+//        }
+//
+//    }
 	
-	@GetMapping("/findByNomeProduto")
-	public ResponseEntity<List<Carrinho>> findByProdutoNomeProduto (@RequestParam String nomeProduto){
-		
-		try {
-			
-			List<Carrinho> lista = this.carrinhoService.findByProdutoNomeProduto(nomeProduto);
-			return new ResponseEntity<>(lista, HttpStatus.OK);
-			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-			
-		}
-		
-	}
+//	@GetMapping("/findByNomeProduto")
+//	public ResponseEntity<List<Carrinho>> findByProdutoNomeProduto (@RequestParam String nomeProduto){
+//		
+//		try {
+//			
+//			List<Carrinho> lista = this.carrinhoService.findByProdutoNomeProduto(nomeProduto);
+//			return new ResponseEntity<>(lista, HttpStatus.OK);
+//			
+//		} catch (Exception e) {
+//			
+//			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//			
+//		}
+//		
+//	}
 	
 	@GetMapping("/findByIdCarrinho")
 	public ResponseEntity<List<Carrinho>> findByIdCarrinho (@RequestParam long idCarrinho){

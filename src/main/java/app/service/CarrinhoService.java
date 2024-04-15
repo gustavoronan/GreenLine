@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.entity.Carrinho;
+import app.entity.ItemCarrinho;
 import app.repository.CarrinhoRepository;
 import jakarta.validation.Valid;
 
@@ -19,8 +20,8 @@ public class CarrinhoService {
 		
 		double valorTotal = 0;
 		if(itemCarrinho != null) {
-			for (@Valid ItemCarrinho itemCarrinho : itemCarrinho) {
-				valorTotal += (itemCarrinho.getvalorUnitario() * itemCarrinho.getquantProd());
+			for (@Valid ItemCarrinho itemCar : itemCarrinho) {
+				valorTotal += (itemCar.getValorUnitario() * itemCar.getQuantProd());
 			}
 		}
 		return valorTotal;
@@ -55,15 +56,15 @@ public class CarrinhoService {
 	
 	//consultas DB
 	
-	public List<Carrinho> findByCarrinho(long idCarrinho){
-		Carrinho carrinho = new Carrinho();
-		carrinho.setIdCarrinho(idCarrinho);
-		return this.carrinhoRepository.findByCarrinho(carrinho);
-	}
+//	public List<Carrinho> findByCarrinho(long idCarrinho){
+//		Carrinho carrinho = new Carrinho();
+//		carrinho.setIdCarrinho(idCarrinho);
+//		return this.carrinhoRepository.findByCarrinho(carrinho);
+//	}
 	
-	public List<Carrinho> findByProdutoNomeProduto(String nomeProduto){
-		return this.carrinhoRepository.findByProdutoNomeProduto(nomeProduto);
-	}
+//	public List<Carrinho> findByProdutoNomeProduto(String nomeProduto){
+//		return this.carrinhoRepository.findByProdutoNomeProduto(nomeProduto);
+//	}
 	
 	//testar apos merge
 	public List<Carrinho> findByIdCarrinho(long idCarrinho){

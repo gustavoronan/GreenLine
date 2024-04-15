@@ -33,9 +33,9 @@ public class Usuario {
 	//relacao de um cliente para muitas vendas
 		@OneToMany(mappedBy = "usuario")
 		@JsonIgnoreProperties("usuario")
-		private List<Venda> venda;
+		private List<Carrinho> carrinho;
 		
-		@OneToOne
+		@OneToOne(mappedBy = "usuario")
 		@JoinColumn(name = "cliente_id")  // Define a coluna de chave estrangeira na tabela de Usuario
 		private Cliente cliente;
 

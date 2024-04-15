@@ -9,9 +9,9 @@ import app.entity.Carrinho;
 
 public interface CarrinhoRepository extends JpaRepository<Carrinho, Long> {
 
-	public List<Carrinho> findByCarrinho(Carrinho carrinho);
+	//public List<Carrinho> findByCarrinho(Carrinho carrinho);
 	
-	public List<Carrinho> findByProdutoNomeProduto(String nomeProduto);
+//	public List<Carrinho> findByProdutoNomeProduto(String nomeProduto);
 	
 	//testar apos merge
 	public List<Carrinho> findByIdCarrinho(long idCarrinho);

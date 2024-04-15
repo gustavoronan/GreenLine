@@ -25,6 +25,6 @@ public class Cliente {
   private String enderecoCliente;
   
 //relacao de um cliente para um usuario
-	@OneToOne(mappedBy = "Cliente")
+	@OneToOne
 	private Usuario usuario;
 }

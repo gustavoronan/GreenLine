@@ -37,7 +37,7 @@ public class ItemCarrinho {
 	@NotNull(message = "quantidade de produtos não pode ser nula")
 	private int quantProd;
 	
-	@OneToOne 
+	@OneToOne (cascade = CascadeType.PERSIST)
 	@JsonIgnoreProperties("itemCarrinho")
 	private Produto produto;
 	

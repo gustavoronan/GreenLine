@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.ItemCarrinho;
 import app.service.ItemCarrinhoService;
+import jakarta.validation.Valid;
 
 @RequestMapping("/api/itemcarrinho")
 @RestController
@@ -74,7 +75,7 @@ public class ItemCarrinhoController {
 			return new ResponseEntity<>(mensagem,HttpStatus.OK);		
 		} catch (Exception e) {
 
-			return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);		
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_GATEWAY);		
 
 		}
 
@@ -88,7 +89,7 @@ public class ItemCarrinhoController {
 			return new ResponseEntity<>(mensagem,HttpStatus.OK);		
 		} catch (Exception e) {
 
-			return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);		
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);		
 
 		}
 

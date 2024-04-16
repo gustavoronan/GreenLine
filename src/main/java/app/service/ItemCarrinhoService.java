@@ -1,6 +1,7 @@
 package app.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class ItemCarrinhoService {
 	
 	
 	public String save (ItemCarrinho itemCarrinho) {
+		//adiciona o valor do produto a variavel valorUnitario para manter o registro do valor na compra
 		double valorUnitario = this.setValor(itemCarrinho.getProduto());
 		itemCarrinho.setValorUnitario(valorUnitario);
 		this.itemCarrinhoRepository.save(itemCarrinho);
@@ -34,8 +36,7 @@ public class ItemCarrinhoService {
 	}
 	
 	public List <ItemCarrinho> listAll () {
-	return this.itemCarrinhoRepository.findAll();
-		
+		return this.itemCarrinhoRepository.findAll();
 	}
 	
 
@@ -47,16 +48,24 @@ public class ItemCarrinhoService {
 	}
 	
 	public String update (ItemCarrinho itemCarrinho, long idItem) {
+		Optional<ItemCarrinho> itemcar = this.itemCarrinhoRepository.findById(idItem);
+		if (itemcar.isEmpty()) {
+			throw new RuntimeException("Id nao encontrado");
+		}
 		double valorUnitario = this.setValor(itemCarrinho.getProduto());
 		itemCarrinho.setValorUnitario(valorUnitario);
 		itemCarrinho.setIdItem(idItem);
 		this.itemCarrinhoRepository.save(itemCarrinho);
-		return "O " + itemCarrinho.getValorUnitario() + " Foi atualizado";
+		return "O item" + itemCarrinho.getValorUnitario() + " Foi atualizado";
 		
 	}
 	
 	public String delete (long idItem) {
+		Optional<ItemCarrinho> itemcar = this.itemCarrinhoRepository.findById(idItem);
+		if (itemcar.isEmpty()) {
+			throw new RuntimeException("Id nao encontrado");
+		}
 		this.itemCarrinhoRepository.deleteById(idItem);
-		return " Venda deletada";
+		return " Produto deletado";
 	}
 }

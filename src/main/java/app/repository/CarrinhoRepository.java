@@ -8,13 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import app.entity.Carrinho;
 
 public interface CarrinhoRepository extends JpaRepository<Carrinho, Long> {
-
-	//public List<Carrinho> findByCarrinho(Carrinho carrinho);
 	
-//	public List<Carrinho> findByProdutoNomeProduto(String nomeProduto);
-	
-	//testar apos merge
-	public List<Carrinho> findByIdCarrinho(long idCarrinho);
+    public List<Carrinho> findByItemCarrinhoProdutoNomeProduto(String nomeProduto);
 	
 	@Query("FROM Carrinho c WHERE c.valorCarrinho >= :valorCarrinho")
 	public List<Carrinho> buscarVendaAcimaValor(double valorCarrinho);

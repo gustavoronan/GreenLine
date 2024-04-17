@@ -122,20 +122,9 @@ public class CarrinhoService {
 	}
 	
 	//consultas DB
-	
-//	public List<Carrinho> findByCarrinho(long idCarrinho){
-//		Carrinho carrinho = new Carrinho();
-//		carrinho.setIdCarrinho(idCarrinho);
-//		return this.carrinhoRepository.findByCarrinho(carrinho);
-//	}
-	
-//	public List<Carrinho> findByProdutoNomeProduto(String nomeProduto){
-//		return this.carrinhoRepository.findByProdutoNomeProduto(nomeProduto);
-//	}
-	
-	//testar apos merge
-	public List<Carrinho> findByIdCarrinho(long idCarrinho){
-		return this.carrinhoRepository.findByIdCarrinho(idCarrinho);
+		
+	public List<Carrinho> findByItemCarrinhoProdutoNomeProduto(String nomeProduto){
+		return this.carrinhoRepository.findByItemCarrinhoProdutoNomeProduto(nomeProduto);
 	}
 	
 	public List<Carrinho> buscarVendaAcimaValor(double valorCarrinho){

@@ -39,6 +39,10 @@ public class CarrinhoService {
 	}
 	
 	public String save (Carrinho carrinho) {
+		// Verifica se o carrinho possui algum item
+	    if (carrinho.getItemCarrinho() == null || carrinho.getItemCarrinho().isEmpty()) {
+	    	throw new RuntimeException(" Carrinho vazio");
+	    }
 		// Percorre os itens do carrinho e os salva no banco de dados
         for (ItemCarrinho item : carrinho.getItemCarrinho()) {
             item.setCarrinho(carrinho);

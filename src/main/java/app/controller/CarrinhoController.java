@@ -35,7 +35,7 @@ public class CarrinhoController {
 			
 		} catch (Exception e) {
 
-			return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);		
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_GATEWAY);		
 
 		}
 

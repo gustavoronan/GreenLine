@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.ItemCarrinho;
 import app.service.ItemCarrinhoService;
-import jakarta.validation.Valid;
 
 @RequestMapping("/api/itemcarrinho")
 @RestController

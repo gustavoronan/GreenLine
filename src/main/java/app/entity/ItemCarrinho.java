@@ -1,7 +1,5 @@
 package app.entity;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -10,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -32,6 +29,7 @@ public class ItemCarrinho {
 	private long idItem; // se trata de um item de um carrinho 
 	// serve para duplicar o valor do produto para o caso de que exista 
 	// alguma alteração futura na tabela de produtos
+	
 	@NotNull(message = "valor unitario não pode ser nulo")
 	private double valorUnitario; 
 	@NotNull(message = "quantidade de produtos não pode ser nula")

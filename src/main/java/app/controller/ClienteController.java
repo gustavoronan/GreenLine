@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,16 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Cliente;
 import app.service.ClienteService;
+import jakarta.validation.Valid;
 
 @RequestMapping("/api/cliente")
 @RestController
+@Validated
 public class ClienteController {
 
 	@Autowired
 	private ClienteService clienteService;
 
-	@PostMapping("/save")
-	public ResponseEntity<String> save(@RequestBody Cliente cliente){
+	@PostMapping("/save") //ok
+	public ResponseEntity<String> save(@Valid @RequestBody Cliente cliente){
 
 		try {
 			
@@ -40,7 +43,7 @@ public class ClienteController {
 
 	}
 
-	@GetMapping("/listAll")
+	@GetMapping("/listAll") //ok
 	public ResponseEntity <List<Cliente>> listAll(){
 
 		try {
@@ -53,7 +56,7 @@ public class ClienteController {
 
 	}
 
-	@GetMapping("/findById/{idCliente}")
+	@GetMapping("/findById/{idCliente}") //ok
 	public ResponseEntity <Cliente> findById(@PathVariable long idCliente){
 
 		try {
@@ -66,8 +69,8 @@ public class ClienteController {
 
 	}
 	
-	@PutMapping("/update/{idCliente}")
-	public ResponseEntity<String> update(@RequestBody Cliente cliente, @PathVariable long idCliente){
+	@PutMapping("/update/{idCliente}") //ok
+	public ResponseEntity<String> update(@Valid @RequestBody Cliente cliente, @PathVariable long idCliente){
 
 		try {
 			String mensagem = this.clienteService.update(cliente, idCliente);
@@ -80,7 +83,7 @@ public class ClienteController {
 
 	}
 	
-	@DeleteMapping("/delete/{idCliente}")
+	@DeleteMapping("/delete/{idCliente}") //ok
 	public ResponseEntity<String> update(@PathVariable long idCliente){
 
 		try {

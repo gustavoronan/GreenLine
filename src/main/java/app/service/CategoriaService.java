@@ -9,8 +9,8 @@ import app.repository.CategoriaRepository;
 
 @Service
 public class CategoriaService {
-	@Autowired
 	
+	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
 	public String save(Categoria categoria) {
@@ -37,5 +37,8 @@ public class CategoriaService {
 		return " Categoria deletada com sucesso";
 	}
 	
+	public List<Categoria> findByDescricao(String descricao){
+		return this.categoriaRepository.findByDescricao(descricao);
+	}
 	
 }

@@ -1,6 +1,7 @@
 package app.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 
 import app.entity.Categoria;
 import app.repository.CategoriaRepository;
+import app.service.CategoriaService;
 
 @SpringBootTest
 public class CategoriaControllerTest {
@@ -27,6 +29,7 @@ public class CategoriaControllerTest {
 	
 	@MockBean
 	CategoriaRepository categoriaRepository;
+	CategoriaService categoriaService;
 	
 	@BeforeEach
 	void setup () {
@@ -46,24 +49,38 @@ public class CategoriaControllerTest {
 		}
 	
 	@Test
-	void cenario01() {
+	void testListAll() {
 
 	    ResponseEntity<List<Categoria>> listaCategoria = this.categoriaController.listAll();
 	    assertEquals(2, listaCategoria.getBody().size());    
 	}
+	
+	
+
 
 
 	@Test
 	void testSave() {
-	    Categoria novoCategoria = new Categoria(3, null);
+	    Categoria novoCategoria = new Categoria(3, "Gamer");
 
 
 	    ResponseEntity<String> response = this.categoriaController.save(novoCategoria);
 
 	    assertEquals(HttpStatus.CREATED, response.getStatusCode());
-	   // assertEquals(" Categoria salvo!", response.getBody());
 
 	}
+	
+	@Test
+	void testSaveNOTOK() {
+		 Categoria categoriaInvalida = new Categoria();
+		 categoriaInvalida.setDescricao(null);
+		 
+	    ResponseEntity<String> response = this.categoriaController.save(null);
+
+	    assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+
+	}
+
 
 	@Test
 	void testFindByIdOk() {
@@ -108,12 +125,63 @@ public class CategoriaControllerTest {
 	    when(categoriaRepository.save(categoriaAtualizada)).thenReturn(categoriaAtualizada);
 	}
 	
-	/*@Test
-    void testDelete() {
-        long idVenda = 1L;
-        ResponseEntity<String> response = categoriaController.delete(idVenda);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        verify(categoriaRepository).deleteById(idVenda);
-    }*/
+	@Test
+	void testUpdateWithError() {
+	    
+	    Categoria categoriaExistente = new Categoria(2, "Notebook");
+	    Categoria categoriaAtualizada = new Categoria(2, "Computador" );
+	    
+	    
+	    long idCategoria = 1L;
+	    
+	    
+	    when(categoriaRepository.findById(idCategoria)).thenReturn(Optional.of(categoriaExistente));
+	    
+	    
+	    when(categoriaRepository.save(categoriaAtualizada)).thenThrow(new RuntimeException("Erro ao salvar a categoria"));
+	    
+	    
+	    ResponseEntity<String> response = categoriaController.update(categoriaAtualizada, idCategoria);
+	    
+	   
+	    assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+	}
 
+	
+	@Test
+    void testDelete() {
+        long idCategoria= 1L;
+        ResponseEntity<String> response = categoriaController.delete(idCategoria);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        verify(categoriaRepository).deleteById(idCategoria);
+    }
+
+	@Test
+	void testDeleteNotOK() {
+	    long idCategoria = 1L;
+
+	    when(categoriaController.delete(idCategoria)).thenThrow(new RuntimeException("Exceção simulada"));
+
+	    ResponseEntity<String> response = categoriaController.delete(idCategoria);
+
+	    assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+	}
+	
+	@Test
+	void testFindByDescricao() {
+	    // Dado
+	    String descricao = "Gamer";
+	    List<Categoria> categorias = new ArrayList<>();
+	    categorias.add(new Categoria(1, "Gamer"));
+	    when(categoriaRepository.findByDescricao(descricao)).thenReturn(categorias);
+
+	    // Quando
+	    ResponseEntity<List<Categoria>> response = categoriaController.findByDescricao(descricao);
+
+	    // Então
+	    assertEquals(HttpStatus.OK, response.getStatusCode());
+	    assertEquals(1, response.getBody().size());
+	    assertEquals(descricao, response.getBody().get(0).getDescricao());
+	}
+	
 }

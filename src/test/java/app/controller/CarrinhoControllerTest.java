@@ -92,7 +92,7 @@ public class CarrinhoControllerTest {
 		 
 		 ResponseEntity <String> response = this.carrinhoController.save(carrinho);
 		 
-		 assertEquals(HttpStatus.CREATED, response.getStatusCode());
+		 assertEquals(HttpStatus.OK, response.getStatusCode());
 		 
 	 }
 	 

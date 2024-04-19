@@ -33,6 +33,8 @@ public class CarrinhoService {
 			for (@Valid ItemCarrinho itemCar : itemCarrinho) {
 				valorTotal += (itemCar.getValorUnitario() * itemCar.getQuantProd());
 			}
+		}else {
+			throw new RuntimeException(" O carrinho nao pode estar vazio");
 		}
 		return valorTotal;
 		
@@ -128,7 +130,12 @@ public class CarrinhoService {
 	//consultas DB
 		
 	public List<Carrinho> findByItemCarrinhoProdutoNomeProduto(String nomeProduto){
-		return this.carrinhoRepository.findByItemCarrinhoProdutoNomeProduto(nomeProduto);
+		if (nomeProduto == "") {
+			throw new RuntimeException("nome nao pode estar vazio");
+		}else {
+			return this.carrinhoRepository.findByItemCarrinhoProdutoNomeProduto(nomeProduto);
+		}
+		
 	}
 	
 	public List<Carrinho> buscarVendaAcimaValor(double valorCarrinho){
@@ -138,4 +145,5 @@ public class CarrinhoService {
 	public List<Carrinho> buscarVendaAbaixoValor(double valorCarrinho){
 		return this.carrinhoRepository.buscarVendaAbaixoValor(valorCarrinho);
 	}
+
 }

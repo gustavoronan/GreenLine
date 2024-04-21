@@ -8,7 +8,8 @@ import app.entity.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
-	public List<Usuario> findByEmail (String emailUsuario);
-	public List<Usuario> findByClienteNome (String nomeCliente);
+	public List<Usuario> findByEmailUsuario (String emailUsuario);
+	
+	public List<Usuario> findByClienteNomeCliente (String nomeCliente);
 
 }

@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,17 +28,19 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idUsuario;
+	@NotBlank(message = "Email do cliente nao pode estar vazio")
 	private String emailUsuario;
+	@NotBlank(message = "Senha do cliente nao pode estar vazio")
 	private String senhaUsuario;
 	
 	//relacao de um cliente para muitas vendas
 		@OneToMany(mappedBy = "usuario")
 		@JsonIgnoreProperties("usuario")
-		private List<Venda> venda;
+		private List<Carrinho> carrinho;
 		
-		@OneToOne
-		@JoinColumn(name = "cliente_id")  // Define a coluna de chave estrangeira na tabela de Usuario
+		@OneToOne(mappedBy = "usuario")
+		@JsonIgnoreProperties("usuario")
+		//@JoinColumn(name = "id_cliente")//Define a coluna de chave estrangeira na tabela de Usuario
 		private Cliente cliente;
-
 
 }

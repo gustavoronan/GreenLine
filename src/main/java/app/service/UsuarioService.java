@@ -41,12 +41,12 @@ public class UsuarioService {
 	
 	public String delete (long idUsuario) {
 		this.usuarioRepository.deleteById(idUsuario);
-		return "Cliente deletado";
+		return "Usuario deletado";
 	}
 	public List<Usuario> findByEmail(String emailUsuario){
-		return this.usuarioRepository.findByEmail(emailUsuario);
+		return this.usuarioRepository.findByEmailUsuario(emailUsuario);
 	}
 	public List<Usuario> findByClienteNome(String clienteNome){
-		return this.usuarioRepository.findByClienteNome(clienteNome);
+		return this.usuarioRepository.findByClienteNomeCliente(clienteNome);
 	}
 }

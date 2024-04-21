@@ -24,7 +24,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 
-	@PostMapping("/save")
+	@PostMapping("/save") //ok
 	public ResponseEntity<String> save(@RequestBody Usuario usuario){
 
 		try {
@@ -40,7 +40,7 @@ public class UsuarioController {
 
 	}
 
-	@GetMapping("/listAll")
+	@GetMapping("/listAll") //ok
 	public ResponseEntity <List<Usuario>> listAll(){
 
 		try {
@@ -53,7 +53,7 @@ public class UsuarioController {
 
 	}
 
-	@GetMapping("/findById/{idUsuario}")
+	@GetMapping("/findById/{idUsuario}") //ok
 	public ResponseEntity <Usuario> findById(@PathVariable long idUsuario){
 
 		try {
@@ -66,7 +66,7 @@ public class UsuarioController {
 
 	}
 	
-	@PutMapping("/update/{idUsuario}")
+	@PutMapping("/update/{idUsuario}") //ok
 	public ResponseEntity<String> update(@RequestBody Usuario usuario, @PathVariable long idUsuario){
 
 		try {
@@ -80,21 +80,20 @@ public class UsuarioController {
 
 	}
 	
-	@DeleteMapping("/delete/{idUsuario}")
-	public ResponseEntity<String> update(@PathVariable long idUsuario){
+	@DeleteMapping("/delete/{idUsuario}")//ok
+	public ResponseEntity<String> delete(@PathVariable long idUsuario){
 
 		try {
 			String mensagem = this.usuarioService.delete(idUsuario);
 			return new ResponseEntity<>(mensagem,HttpStatus.OK);		
 		} catch (Exception e) {
-
 			return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);		
 
 		}
 
 	}
 	@GetMapping("/findByEmail")
-	public ResponseEntity<List<Usuario>> findByNome(@RequestParam String emailUsuario) {
+	public ResponseEntity<List<Usuario>> findByEmail(@RequestParam String emailUsuario) { //ok
 		try {
 			List<Usuario> lista = this.usuarioService.findByEmail(emailUsuario);
 			return new ResponseEntity<>(lista, HttpStatus.OK);

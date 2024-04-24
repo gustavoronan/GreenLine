@@ -33,6 +33,8 @@ public class ProdutoControllerTest {
 		produto.add(new Produto(1L, "rtx", 5.000, "teste1", null, null, null));
 		produto.add(new Produto(2L, "gtx", 6.000, "teste2", null, null, null));
 		produto.add(new Produto(3L, "amd", 7.000, "teste3", null, null, null));
+		
+		when(produtoRepository.findAll()).thenReturn(produto);
 	}
 	
 	
@@ -45,4 +47,11 @@ public class ProdutoControllerTest {
 		assertEquals(HttpStatus.CREATED, response.getStatusCode());
 	}
 	
+	@Test
+	@DisplayName("listAll deve retornar os todos os itens")
+	void testListAll() {
+		ResponseEntity<List<Produto>> response = produtoController.listAll();
+		assertEquals(HttpStatus.CREATED, response.getStatusCode());
+		assertEquals(response.getBody().size(), 3);
+	}
 }

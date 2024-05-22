@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import app.service.UsuarioService;
 
 @RequestMapping("/api/usuario")
 @RestController
+@CrossOrigin("*")
 public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
@@ -111,4 +113,15 @@ public class UsuarioController {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+
+    @PostMapping("/login")
+    public ResponseEntity<Usuario> login(@RequestBody Usuario usuario) {
+        List<Usuario> usuarios = usuarioService.findByEmail(usuario.getEmailUsuario());
+        if (!usuarios.isEmpty() && usuarios.get(0).getSenhaUsuario().equals(usuario.getSenhaUsuario())) {
+            return new ResponseEntity<>(usuarios.get(0), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+    }
 }

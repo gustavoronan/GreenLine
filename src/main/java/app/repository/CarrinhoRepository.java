@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import app.entity.Carrinho;
+import app.entity.Usuario;
 
 public interface CarrinhoRepository extends JpaRepository<Carrinho, Long> {
 	
@@ -16,5 +17,8 @@ public interface CarrinhoRepository extends JpaRepository<Carrinho, Long> {
 	
 	@Query("FROM Carrinho c WHERE c.valorCarrinho <= :valorCarrinho")
 	public List<Carrinho> buscarVendaAbaixoValor(double valorCarrinho);
+
+	@Query("FROM Carrinho c WHERE c.usuario = :usuario AND c.status = 'Em aberto'")
+	public Carrinho getCarrinhoAbertoDoUsuario(Usuario usuario);
 	
 }

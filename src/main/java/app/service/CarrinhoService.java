@@ -53,12 +53,11 @@ public class CarrinhoService {
     		item.setValorUnitario(valorUnitario);
             // Salva o item do carrinho no banco de dados
             itemCarrinhoRepository.save(item);
-            // Salva o produto associado ao item do carrinho no banco de dados
-            produtoRepository.save(item.getProduto());
         }
         //chamada do metodo para fazer o calculo do valor final do carrinho antes de persistir o mesmo
         double valorFinal = this.valorTotalCarrinho(carrinho.getItemCarrinho());
         carrinho.setValorCarrinho(valorFinal);
+        carrinho.setStatus("Encerrado");
         //salva o carrinho no banco de dados 
         this.carrinhoRepository.save(carrinho);
     

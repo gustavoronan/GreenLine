@@ -2,6 +2,8 @@ package app.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,6 +36,7 @@ public class Fornecedor {
 	@NotBlank(message = "O campo email não pode ser vazio")
 	private String emailFornecedor;
 	
+	@JsonIgnoreProperties ("fornecedor")
 	@OneToMany (mappedBy = "fornecedor")
 	private List<Produto> produto;
 }

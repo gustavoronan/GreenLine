@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.entity.Carrinho;
 import app.entity.ItemCarrinho;
 import app.service.ItemCarrinhoService;
 
@@ -35,8 +37,9 @@ public class ItemCarrinhoController {
 			return new ResponseEntity<>(mensagem,HttpStatus.CREATED);	
 			
 		} catch (Exception e) {
-
-			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);		
+			System.out.println(e.getMessage());
+			String erro = e.getMessage();
+			return new ResponseEntity<String>(erro,HttpStatus.BAD_REQUEST);		
 
 		}
 
@@ -82,6 +85,7 @@ public class ItemCarrinhoController {
 
 	}
 	
+	
 	@DeleteMapping("/delete/{idItem}")
 	public ResponseEntity<String> delete(@PathVariable long idItem){
 
@@ -95,4 +99,19 @@ public class ItemCarrinhoController {
 		}
 
 	}
+	
+	@GetMapping("/getCarrinhoByUser")
+	public ResponseEntity <Carrinho> getCarrinhoByUser(@RequestParam long idUsuario){
+
+		try {
+			Carrinho carrinho = this.itemCarrinhoService.getCarrinhoByUser(idUsuario);
+			return new ResponseEntity<>(carrinho, HttpStatus.CREATED);
+		} catch (Exception e) {
+			//System.out.println(e.getMessage());
+			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);		
+
+		}
+
+	}
+	
 }

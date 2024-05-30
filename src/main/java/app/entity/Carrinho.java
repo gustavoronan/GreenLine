@@ -4,12 +4,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
@@ -32,12 +31,13 @@ public class Carrinho {
 	private String descricaoCarrinho;
 	@NotNull (message = " Valor nao pode estar nulo")
 	private double valorCarrinho;
+	private String status;
 	
-	@OneToMany (mappedBy = "carrinho")
+	@OneToMany (mappedBy = "carrinho", fetch = FetchType.EAGER)
 	@JsonIgnoreProperties ("carrinho")
 	private List<ItemCarrinho> itemCarrinho;
 	
-	@ManyToOne (cascade = CascadeType.ALL)
+	@ManyToOne
 	@JsonIgnoreProperties ("carrinho")
 	private Usuario usuario;
 	

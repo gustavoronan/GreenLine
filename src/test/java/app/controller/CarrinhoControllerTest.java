@@ -34,17 +34,17 @@ public class CarrinhoControllerTest {
 	 @BeforeEach
 	    void setup () {
 	        List<Carrinho> list = new ArrayList<>();
-	        list.add(new Carrinho(1, "carrinho do usuario 1", 200.05, null, null));
-	        list.add(new Carrinho(2, "carrinho do usuario 2", 150.05, null, null));
+	        list.add(new Carrinho(1, "carrinho do usuario 1", 200.05, null, null, null));
+	        list.add(new Carrinho(2, "carrinho do usuario 2", 150.05, null, null, null));
 	        when(this.carrinhoRepository.findAll()).thenReturn(list);
 	        
 	        
 	      //MOCK DE SAVE
-	        Carrinho carrinhoS = new Carrinho(3, "carrinho do usuario 3", 50.05, null, null);
+	        Carrinho carrinhoS = new Carrinho(3, "carrinho do usuario 3", 50.05, null, null, null);
 	        when(this.carrinhoRepository.save(carrinhoS)).thenReturn(carrinhoS);
 
 	        //MOCK DE FINDBYID
-	        Carrinho carrinhoF = new Carrinho(4, "carrinho do usuario 4", 69.99, null, null);
+	        Carrinho carrinhoF = new Carrinho(4, "carrinho do usuario 4", 69.99, null, null, null);
 	        when(this.carrinhoRepository.findById(1L)).thenReturn(Optional.of(carrinhoF));
 	       
 
@@ -63,7 +63,7 @@ public class CarrinhoControllerTest {
 	 @DisplayName("SAVE MOCK  TEST ERRO")
      void cenario3() {
 		 
-		 Carrinho carrinho = new Carrinho(5, "carrinho do usuario 3", 50.05, null, null);
+		 Carrinho carrinho = new Carrinho(5, "carrinho do usuario 3", 50.05, null, null, null);
 		 when(this.carrinhoRepository.save(carrinho)).thenReturn(carrinho);
 		 
 		 ResponseEntity <String> response = this.carrinhoController.save(carrinho);
@@ -83,7 +83,7 @@ public class CarrinhoControllerTest {
 		 ItemCarrinho itemCarrinho = new ItemCarrinho(1, 2000.0, 2, produto, null);
 
 		 // Cria um carrinho e adiciona o itemCarrinho
-		 Carrinho carrinho = new Carrinho(6, "carrinho do usuario 3", 4000.0, List.of(itemCarrinho), null);
+		 Carrinho carrinho = new Carrinho(6, "carrinho do usuario 3", 4000.0, null, List.of(itemCarrinho), null);
 		 when(this.carrinhoRepository.save(carrinho)).thenReturn(carrinho);
 		 
 		 ResponseEntity <String> response = this.carrinhoController.save(carrinho);
@@ -102,10 +102,10 @@ public class CarrinhoControllerTest {
 		ItemCarrinho itemCarrinho = new ItemCarrinho(1, 2000.0, 2, produto, null);
 
 		// Cria um carrinho e adiciona o itemCarrinho
-		Carrinho carrinho = new Carrinho(1, "carrinho do usuario 3", 4000.0, List.of(itemCarrinho), null);
+		Carrinho carrinho = new Carrinho(1, "carrinho do usuario 3", 4000.0, null, List.of(itemCarrinho), null);
 		
 		ItemCarrinho itemCarrinhoUpd = new ItemCarrinho(1, 2000.0, 1, produto, null);
-		Carrinho carrinhoUpd = new Carrinho(1, "carrinho do usuario 3", 2000.0, List.of(itemCarrinhoUpd), null);
+		Carrinho carrinhoUpd = new Carrinho(1, "carrinho do usuario 3", 2000.0, null, List.of(itemCarrinhoUpd), null);
 		
 		long idCarrinho = 1L;
 			
@@ -125,10 +125,10 @@ public class CarrinhoControllerTest {
 		ItemCarrinho itemCarrinho = new ItemCarrinho(1, 2000.0, 2, produto, null);
 
 		// Cria um carrinho e adiciona o itemCarrinho
-		Carrinho carrinho = new Carrinho(1, "carrinho do usuario 3", 4000.0, List.of(itemCarrinho), null);
+		Carrinho carrinho = new Carrinho(1, "carrinho do usuario 3", 4000.0, null, List.of(itemCarrinho), null);
 		
 		ItemCarrinho itemCarrinhoUpd = new ItemCarrinho(1, 2000.0, 1, produto, null);
-		Carrinho carrinhoUpd = new Carrinho(1, "carrinho do usuario 3", 2000.0, List.of(itemCarrinhoUpd), null);
+		Carrinho carrinhoUpd = new Carrinho(1, "carrinho do usuario 3", 2000.0, null, List.of(itemCarrinhoUpd), null);
 		
 		long idCarrinho = 2L;
 			
@@ -169,7 +169,7 @@ public class CarrinhoControllerTest {
 		ItemCarrinho itemCarrinho = new ItemCarrinho(1, 2000.0, 2, produto, null);
 
 		// Cria um carrinho e adiciona o itemCarrinho
-		Carrinho carrinho = new Carrinho(1, "carrinho do usuario 3", 4000.0, List.of(itemCarrinho), null);
+		Carrinho carrinho = new Carrinho(1, "carrinho do usuario 3", 4000.0, null, List.of(itemCarrinho), null);
 		when(this.carrinhoRepository.findByItemCarrinhoProdutoNomeProduto("Placa de video")).thenReturn(List.of(carrinho)); 
 		
 		 String nomeP = "Placa de video";
@@ -188,7 +188,7 @@ public class CarrinhoControllerTest {
 	     ItemCarrinho itemCarrinho = new ItemCarrinho(1, 2000.0, 2, produto, null);
 
 	     // Cria um carrinho e adiciona o itemCarrinho
-	     Carrinho carrinho = new Carrinho(1, "carrinho do usuario 3", 4000.0, List.of(itemCarrinho), null);
+	     Carrinho carrinho = new Carrinho(1, "carrinho do usuario 3", 4000.0, null, List.of(itemCarrinho), null);
 	     when(this.carrinhoRepository.findByItemCarrinhoProdutoNomeProduto("")).thenReturn(List.of(carrinho));
 	     
 	     // Realiza a chamada ao método de busca
@@ -203,8 +203,8 @@ public class CarrinhoControllerTest {
 	 @DisplayName("buscarVendaAbaixoValor ALL MOCK TEST")
 	 void cenario11() {
 		 List<Carrinho> list = new ArrayList<>();
-	     list.add(new Carrinho(1, "carrinho do usuario 1", 200.05, null, null));
-	     list.add(new Carrinho(2, "carrinho do usuario 2", 150.05, null, null));
+	     list.add(new Carrinho(1, "carrinho do usuario 1", 200.05, null, null, null));
+	     list.add(new Carrinho(2, "carrinho do usuario 2", 150.05, null, null, null));
 	     when(this.carrinhoRepository.buscarVendaAbaixoValor(250)).thenReturn(list);
 	     
 		 ResponseEntity<List<Carrinho>> lista = this.carrinhoController.buscarVendaAbaixoValor(250);
@@ -217,8 +217,8 @@ public class CarrinhoControllerTest {
 	 @DisplayName("buscarVendaAcimaValor ALL MOCK TEST")
 	 void cenario12() {
 		 List<Carrinho> list = new ArrayList<>();
-	     list.add(new Carrinho(1, "carrinho do usuario 1", 200.05, null, null));
-	     list.add(new Carrinho(2, "carrinho do usuario 2", 150.05, null, null));
+	     list.add(new Carrinho(1, "carrinho do usuario 1", 200.05, null, null, null));
+	     list.add(new Carrinho(2, "carrinho do usuario 2", 150.05, null, null, null));
 	     when(this.carrinhoRepository.buscarVendaAcimaValor(100)).thenReturn(list);
 	     
 		 ResponseEntity<List<Carrinho>> lista = this.carrinhoController.buscarVendaAcimaValor(100);
@@ -226,5 +226,5 @@ public class CarrinhoControllerTest {
 		 assertEquals(2, lista.getBody().size());  
 		 assertEquals(HttpStatus.OK, lista.getStatusCode());
 	 }
-	 
+	
 }

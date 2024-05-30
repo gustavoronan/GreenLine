@@ -3,6 +3,7 @@ package app.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,11 +36,11 @@ public class ItemCarrinho {
 	@NotNull(message = "quantidade de produtos não pode ser nula")
 	private int quantProd;
 	
-	@OneToOne (cascade = CascadeType.PERSIST)
+	@ManyToOne 
 	@JsonIgnoreProperties("itemCarrinho")
 	private Produto produto;
 	
-	@ManyToOne (cascade = CascadeType.ALL)
+	@ManyToOne
 	@JsonIgnoreProperties("itemCarrinho")
 	private Carrinho carrinho;
 	

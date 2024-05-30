@@ -6,8 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.entity.Carrinho;
 import app.entity.ItemCarrinho;
 import app.entity.Produto;
+import app.entity.Usuario;
+import app.repository.CarrinhoRepository;
 import app.repository.ItemCarrinhoRepository;
 import jakarta.validation.Valid;
 
@@ -16,6 +19,10 @@ public class ItemCarrinhoService {
 	
 	@Autowired
 	private ItemCarrinhoRepository itemCarrinhoRepository;
+	
+	@Autowired
+	private CarrinhoRepository carrinhoRepository;
+	
 	
 	public double setValor(@Valid Produto produto) {
 		
@@ -31,6 +38,7 @@ public class ItemCarrinhoService {
 		//adiciona o valor do produto a variavel valorUnitario para manter o registro do valor na compra
 		double valorUnitario = this.setValor(itemCarrinho.getProduto());
 		itemCarrinho.setValorUnitario(valorUnitario);
+		System.out.println(itemCarrinho.getIdItem());
 		this.itemCarrinhoRepository.save(itemCarrinho);
 		return itemCarrinho.getValorUnitario() + " Foi adicionado";
 	}
@@ -38,7 +46,6 @@ public class ItemCarrinhoService {
 	public List <ItemCarrinho> listAll () {
 		return this.itemCarrinhoRepository.findAll();
 	}
-	
 
 	public ItemCarrinho findById(long idItem) {
 
@@ -67,5 +74,24 @@ public class ItemCarrinhoService {
 		}
 		this.itemCarrinhoRepository.deleteById(idItem);
 		return " Produto deletado";
+	}
+	
+	public Carrinho getCarrinhoByUser (long idUsuario) {
+		
+		Usuario usuario = new Usuario();
+		usuario.setIdUsuario(idUsuario);
+		Carrinho carrinho = this.carrinhoRepository.getCarrinhoAbertoDoUsuario(usuario);
+		
+		if(carrinho == null) {
+			Carrinho carrinhoNovo = new Carrinho();
+			carrinhoNovo.setUsuario(usuario);
+			carrinhoNovo.setStatus("Em aberto");
+			carrinhoNovo.setDescricaoCarrinho("---");
+			carrinhoNovo.setValorCarrinho(0);
+			this.carrinhoRepository.save(carrinhoNovo);
+			carrinho = this.carrinhoRepository.getCarrinhoAbertoDoUsuario(usuario);
+		}
+
+		return carrinho;
 	}
 }

@@ -1,11 +1,13 @@
 package app.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.entity.Cliente;
+import app.entity.Usuario;
 import app.repository.ClienteRepository;
 
 @Service
@@ -30,6 +32,17 @@ public class ClienteService {
 
 		Cliente cliente = this.clienteRepository.findById(idCliente).get();
 		return cliente;
+
+	}
+	
+	public Cliente findByUsuarioId(long idUsuario) {
+		
+		Usuario usuario = new Usuario();
+		usuario.setIdUsuario(idUsuario);
+		Optional<Cliente> cliente = this.clienteRepository.findByUsuario(usuario);
+		if(cliente.isPresent())
+		return cliente.get();
+		else return null;
 
 	}
 	

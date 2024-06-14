@@ -47,6 +47,7 @@ public class UsuarioService {
 		return this.usuarioRepository.findByEmailUsuario(emailUsuario);
 	}
 	public List<Usuario> findByClienteNome(String clienteNome){
-		return this.usuarioRepository.findByClienteNomeCliente(clienteNome);
+		return null;
+		//return this.usuarioRepository.findByClienteNomeCliente(clienteNome);
 	}
 }

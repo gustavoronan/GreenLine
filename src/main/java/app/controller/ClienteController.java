@@ -24,13 +24,14 @@ import jakarta.validation.Valid;
 @RestController
 @Validated
 @CrossOrigin("*")
+
 public class ClienteController {
 
 	@Autowired
 	private ClienteService clienteService;
 
 	@PostMapping("/save") //ok
-	public ResponseEntity<String> save(@Valid @RequestBody Cliente cliente){
+	public ResponseEntity<String> save(@RequestBody Cliente cliente){
 
 		try {
 			
@@ -38,6 +39,9 @@ public class ClienteController {
 			return new ResponseEntity<>(mensagem,HttpStatus.OK);	
 			
 		} catch (Exception e) {
+			
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 
 			return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);		
 
@@ -65,6 +69,21 @@ public class ClienteController {
 			Cliente cliente = this.clienteService.findById(idCliente);
 			return new ResponseEntity<>(cliente, HttpStatus.CREATED);
 		} catch (Exception e) {			
+			return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);		
+
+		}
+
+	}
+	
+	@GetMapping("/findByUsuarioId/{idUsuario}") //ok
+	public ResponseEntity <Cliente> findByUsuarioId(@PathVariable long idUsuario){
+
+		try {
+			Cliente cliente = this.clienteService.findByUsuarioId(idUsuario);
+			return new ResponseEntity<>(cliente, HttpStatus.CREATED);
+		} catch (Exception e) {			
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 			return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);		
 
 		}

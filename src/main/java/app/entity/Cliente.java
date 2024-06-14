@@ -2,11 +2,11 @@ package app.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ public class Cliente {
 	private String enderecoCliente;
 
 	//relacao de um cliente para um usuario
-	@OneToOne (cascade = CascadeType.ALL)
+	@ManyToOne
 	@JsonIgnoreProperties("cliente")
 	private Usuario usuario;
 }

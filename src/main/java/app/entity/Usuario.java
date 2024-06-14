@@ -38,9 +38,9 @@ public class Usuario {
 		@JsonIgnoreProperties("usuario")
 		private List<Carrinho> carrinho;
 		
-		@OneToOne(mappedBy = "usuario")
+	/*	@OneToMany(mappedBy = "usuario")
 		@JsonIgnoreProperties("usuario")
 		//@JoinColumn(name = "id_cliente")//Define a coluna de chave estrangeira na tabela de Usuario
-		private Cliente cliente;
+		private Cliente cliente;*/
 
 }

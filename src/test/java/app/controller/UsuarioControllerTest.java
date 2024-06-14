@@ -46,11 +46,11 @@ public class UsuarioControllerTest {
 
 		List<Usuario> lista = new ArrayList<>();
 
-		lista.add(new Usuario(1, "Ricardo@.com", "333", null, null));
+		lista.add(new Usuario(1, "Ricardo@.com", "333", null));
 
-		lista.add(new Usuario(2, "Gustavo@.com", "senha", null, null));
+		lista.add(new Usuario(2, "Gustavo@.com", "senha", null));
 
-		Usuario usuario = new Usuario(3, "Josericardo@.com", "2444", null, null);
+		Usuario usuario = new Usuario(3, "Josericardo@.com", "2444", null);
 		//Cliente cliente = new cliente(4,)
 
 
@@ -84,7 +84,7 @@ public class UsuarioControllerTest {
 	@Test
 	@DisplayName("Save Usuario")
 	void cenario2() {
-		Usuario usuario = new Usuario(3, "Josericardo@.com", "2444", null, null);
+		Usuario usuario = new Usuario(3, "Josericardo@.com", "2444", null);
 
 		ResponseEntity<String> response = this.UsuarioController.save(usuario);
 
@@ -120,9 +120,9 @@ public class UsuarioControllerTest {
 
 		List<Usuario> lista = new ArrayList<>();
 
-		lista.add(new Usuario(1, "Ricardo@.com", "333", null, null));
+		lista.add(new Usuario(1, "Ricardo@.com", "333", null));
 
-		lista.add(new Usuario(2, "Gustavo@.com", "senha", null, null));
+		lista.add(new Usuario(2, "Gustavo@.com", "senha", null));
 
 		ResponseEntity<List<Usuario>> response = this.UsuarioController.findByEmail("Ricardo@.com");
 

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping("/api/produto")
 @RestController
 @CrossOrigin("*")
+
 public class ProdutoController {
 	
 	@Autowired

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.entity.Cliente;
 import app.entity.Usuario;
 import app.service.UsuarioService;
 
@@ -121,7 +122,21 @@ public class UsuarioController {
         if (!usuarios.isEmpty() && usuarios.get(0).getSenhaUsuario().equals(usuario.getSenhaUsuario())) {
             return new ResponseEntity<>(usuarios.get(0), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+    
+
+	@GetMapping("/findByLoginId/{idUsuario}") //ok
+	public ResponseEntity <Usuario> findByLoginId(@PathVariable long idUsuario){
+
+		try {
+			Usuario usuario = this.usuarioService.findById(idUsuario);
+			return new ResponseEntity<>(usuario, HttpStatus.CREATED);
+		} catch (Exception e) {			
+			return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);		
+
+		}
+
+	}
 }

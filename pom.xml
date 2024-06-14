@@ -50,10 +50,12 @@
 		    <artifactId>spring-boot-starter-validation</artifactId>
 		    <version>3.2.3</version>
 		</dependency>
+		
+	
+		
 	</dependencies>
 
 	<build>
-
          <pluginManagement>
         <plugins>
             <plugin>
@@ -98,5 +100,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -1,5 +1,6 @@
 package app.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import app.repository.CarrinhoRepository;
 import app.repository.ItemCarrinhoRepository;
 import app.repository.ProdutoRepository;
 import jakarta.validation.Valid;
+import dto.MesValorDTO;
 
 @Service
 public class CarrinhoService {
@@ -45,15 +47,16 @@ public class CarrinhoService {
 	    if (carrinho.getItemCarrinho() == null || carrinho.getItemCarrinho().isEmpty()) {
 	    	throw new RuntimeException(" Carrinho vazio");
 	    }
+	    // Testar necessidade apos implementação 
 		// Percorre os itens do carrinho e os salva no banco de dados
-        for (ItemCarrinho item : carrinho.getItemCarrinho()) {
-            item.setCarrinho(carrinho);
-          //adiciona o valor do produto a variavel valorUnitario para manter o registro do valor na compra
-    		double valorUnitario = this.itemCarrinhoService.setValor(item.getProduto());
-    		item.setValorUnitario(valorUnitario);
-            // Salva o item do carrinho no banco de dados
-            itemCarrinhoRepository.save(item);
-        }
+//        for (ItemCarrinho item : carrinho.getItemCarrinho()) {
+//            item.setCarrinho(carrinho);
+//          //adiciona o valor do produto a variavel valorUnitario para manter o registro do valor na compra
+//    		double valorUnitario = this.itemCarrinhoService.setValor(item.getProduto());
+//    		item.setValorUnitario(valorUnitario);
+//            // Salva o item do carrinho no banco de dados
+//            itemCarrinhoRepository.save(item);
+//        }
         //chamada do metodo para fazer o calculo do valor final do carrinho antes de persistir o mesmo
         double valorFinal = this.valorTotalCarrinho(carrinho.getItemCarrinho());
         carrinho.setValorCarrinho(valorFinal);
@@ -144,5 +147,22 @@ public class CarrinhoService {
 	public List<Carrinho> buscarVendaAbaixoValor(double valorCarrinho){
 		return this.carrinhoRepository.buscarVendaAbaixoValor(valorCarrinho);
 	}
+	
+//	public List<MesValorDTO> ListVendasByMonthForLast12Months(){
+//		return this.carrinhoRepository.findTotalValorCarrinhoByMonthForLast12Months();
+//	}
+	
+	public List<MesValorDTO> getTotalValorCarrinhoByMonthForLast12Months() {
+        List<Object[]> results = carrinhoRepository.findTotalValorCarrinhoByMonthForLast12Months();
+        List<MesValorDTO> dtoResults = new ArrayList<>();
+
+        for (Object[] result : results) {
+            String mes = (String) result[0];
+            Double valorTotal = ((Number) result[1]).doubleValue(); // Cast para Double
+            dtoResults.add(new MesValorDTO(mes, valorTotal));
+        }
+
+        return dtoResults;
+    }
 
 }

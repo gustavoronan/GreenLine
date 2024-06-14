@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import app.entity.Carrinho;
 import app.entity.Usuario;
+import dto.MesValorDTO;
 
 public interface CarrinhoRepository extends JpaRepository<Carrinho, Long> {
 	
@@ -20,5 +21,14 @@ public interface CarrinhoRepository extends JpaRepository<Carrinho, Long> {
 
 	@Query("FROM Carrinho c WHERE c.usuario = :usuario AND c.status = 'Em aberto'")
 	public Carrinho getCarrinhoAbertoDoUsuario(Usuario usuario);
+	
+	 @Query(value = "SELECT DATE_FORMAT(c.data_carrinho, '%Y-%m') AS mes, SUM(c.valor_carrinho) AS valorTotal " +
+             "FROM carrinho c " +
+             "WHERE c.data_carrinho >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH) " +
+             "AND c.status = 'Encerrado' " +
+             "GROUP BY mes " +
+             "ORDER BY mes", 
+             nativeQuery = true)
+	 List<Object[]> findTotalValorCarrinhoByMonthForLast12Months();
 	
 }

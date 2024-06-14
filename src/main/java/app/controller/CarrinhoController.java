@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Carrinho;
 import app.service.CarrinhoService;
+import dto.MesValorDTO;
 
 @RequestMapping("/api/carrinho")
 @RestController
@@ -137,6 +138,22 @@ public class CarrinhoController {
 		try {
 			
 			List<Carrinho> lista = this.carrinhoService.buscarVendaAbaixoValor(valorCarrinho);
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			
+		}
+		
+	}
+	
+	@GetMapping("/ListVendasByMonthForLast12Months")
+	public ResponseEntity<List<MesValorDTO>> ListVendasByMonthForLast12Months (){
+		
+		try {
+			
+			List<MesValorDTO> lista = this.carrinhoService.getTotalValorCarrinhoByMonthForLast12Months();
 			return new ResponseEntity<>(lista, HttpStatus.OK);
 			
 		} catch (Exception e) {

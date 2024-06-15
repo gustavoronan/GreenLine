@@ -2,7 +2,7 @@
 
 ## 🚀 Demanda
 
-Desenvolver uma API RESTFULL (back-end) utilizando **SpringBoot e MySQL** para Loja de eletronicos, e posteriormente desenvolver front-end com **TypeScript e framework(Angular-JS)**.
+Desenvolver uma API RESTFULL (back-end) utilizando **SpringBoot e MySQL** para Loja de eletronicos, e posteriormente desenvolver front-end com **TypeScript e framework(Angular)**.
 
 ### Entidades:
 

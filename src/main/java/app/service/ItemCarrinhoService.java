@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.auth.Usuario;
 import app.entity.Carrinho;
 import app.entity.ItemCarrinho;
 import app.entity.Produto;
-import app.entity.Usuario;
 import app.repository.CarrinhoRepository;
 import app.repository.ItemCarrinhoRepository;
 import jakarta.validation.Valid;

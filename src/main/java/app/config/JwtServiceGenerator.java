@@ -11,7 +11,7 @@ import java.util.function.Function;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import app.auth.UsuarioAuth;
+import app.auth.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -20,7 +20,7 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtServiceGenerator {  
 
-  public String generateToken(UsuarioAuth userDetails) {
+  public String generateToken(Usuario userDetails) {
 	
 	  
 	  //AQUI VOCÊ PODE COLOCAR O QUE MAIS VAI COMPOR O PAYLOAD DO TOKEN
@@ -28,8 +28,7 @@ public class JwtServiceGenerator {
       extraClaims.put("username", userDetails.getUsername());
       extraClaims.put("id", userDetails.getId().toString());
       extraClaims.put("role", userDetails.getRole());
-      extraClaims.put("outracoisa", "teste");
-	  
+      //verificar com o professor como passar o email para o payload
       
       return Jwts
               .builder()

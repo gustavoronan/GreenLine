@@ -1,4 +1,3 @@
-//AuthenticationService.java
 package app.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,26 +9,32 @@ import app.config.JwtServiceGenerator;
 
 @Service
 public class LoginService {
-	
-	@Autowired
-	private LoginRepository repository;
-	@Autowired
-	private JwtServiceGenerator jwtService;
-	@Autowired
-	private AuthenticationManager authenticationManager;
+    
+    @Autowired
+    private UsuarioRepository repository;
+    
+    @Autowired
+    private JwtServiceGenerator jwtService;
+    
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
+    public String logar(Usuario login) {
+        // Autentica o usuário
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        login.getUsername(),
+                        login.getPassword()
+                )
+        );
+        
+        // Busca o usuário no repositório
+        Usuario user = repository.findByEmailUsuario(login.getUsername())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-	public String logar(Login login) {
-		authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(
-						login.getUsername(),
-						login.getPassword()
-						)
-				);
-		UsuarioAuth user = repository.findByUsername(login.getUsername()).get();
-		String jwtToken = jwtService.generateToken(user);
-		
-		return jwtToken;
-	}
-
+        // Gera o token JWT
+        String jwtToken = jwtService.generateToken(user);
+        
+        return jwtToken;
+    }
 }

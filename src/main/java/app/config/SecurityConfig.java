@@ -36,19 +36,10 @@ public class SecurityConfig  {
 		.csrf(AbstractHttpConfigurer::disable)
 		.cors(AbstractHttpConfigurer::disable)
 		.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/api/usuario/login").permitAll()
-				.requestMatchers("/api/usuario/save").permitAll()
-				.requestMatchers("/api/produto/listAll").permitAll()
-				.requestMatchers("/api/categoria/listAll").permitAll()
-				.requestMatchers("/api/carrinho/listAll").permitAll()
-				.requestMatchers("/api/carrinho/update").permitAll()
-				.requestMatchers("/api/categoria/delete/").permitAll()
-				.requestMatchers("/api/itemCarrinho/getCarrinhoByUser").permitAll() // metodo liberado para listar os itens em produto,
-				//verificar onde esta chamando este metodo, sem essa liberacao nao consigo chamar o listAll de produtos no front
-				//porem obviamente, como o usuario nao esta logado, ele da um erro, mesmo assim lista o produto
-				//favor verificar!!!!
-				.requestMatchers("/api/cliente/findByUsuarioId/{idUsuario}").permitAll() // metodo liberado para listar os itens em produto,
-
+				.requestMatchers("/api/usuario/login").permitAll()// pode ser acessador sem logar
+				.requestMatchers("/api/usuario/save").permitAll()// pode ser acessador sem logar
+				.requestMatchers("/api/produto/listAll").permitAll()// pode ser acessador sem logar
+				.requestMatchers("/api/categoria/listAll").permitAll()// pode ser acessador sem logar
 				.anyRequest().authenticated())
 		.authenticationProvider(authenticationProvider)
 		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

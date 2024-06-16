@@ -1,6 +1,7 @@
-package app.controller;
+package app.auth;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import app.entity.Cliente;
-import app.entity.Usuario;
-import app.service.UsuarioService;
 
 @RequestMapping("/api/usuario")
 @RestController
@@ -96,12 +93,17 @@ public class UsuarioController {
 
 	}
 	@GetMapping("/findByEmail")
-	public ResponseEntity<List<Usuario>> findByEmail(@RequestParam String emailUsuario) { //ok
+	public ResponseEntity <Optional<Usuario>> findByEmail(@RequestParam String emailUsuario) { //ok
 		try {
-			List<Usuario> lista = this.usuarioService.findByEmail(emailUsuario);
-			return new ResponseEntity<>(lista, HttpStatus.OK);
+			Optional <Usuario> usuarioOpt = this.usuarioService.findByEmail(emailUsuario);
+			if(usuarioOpt.isPresent()) {
+                return new ResponseEntity<>(usuarioOpt, HttpStatus.OK);
+			}
+			else {
+                return new ResponseEntity<>(Optional.empty(), HttpStatus.NOT_FOUND);
+            }
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
 		}
 	}
 	
@@ -116,15 +118,16 @@ public class UsuarioController {
 	}
 	
 
-    @PostMapping("/login")
-    public ResponseEntity<Usuario> login(@RequestBody Usuario usuario) {
-        List<Usuario> usuarios = usuarioService.findByEmail(usuario.getEmailUsuario());
-        if (!usuarios.isEmpty() && usuarios.get(0).getSenhaUsuario().equals(usuario.getSenhaUsuario())) {
-            return new ResponseEntity<>(usuarios.get(0), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
-    }
+	   @PostMapping("/login")
+	    public ResponseEntity<Usuario> login(@RequestBody Usuario usuario) {
+	        Optional<Usuario> usuarioOpt = usuarioService.findByEmail(usuario.getEmailUsuario());
+	        
+	        if (usuarioOpt.isPresent() && usuarioOpt.get().getSenhaUsuario().equals(usuario.getSenhaUsuario())) {
+	            return new ResponseEntity<>(usuarioOpt.get(), HttpStatus.OK);
+	        } else {
+	            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+	        }
+	    }
     
 
 	@GetMapping("/findByLoginId/{idUsuario}") //ok

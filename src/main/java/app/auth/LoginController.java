@@ -19,7 +19,7 @@ public class LoginController {
 	private LoginService loginService;
 
 	@PostMapping
-	public ResponseEntity<String> logar(@RequestBody Login login) {
+	public ResponseEntity<String> logar(@RequestBody Usuario login) {
 		try {
 			return ResponseEntity.ok(loginService.logar(login));
 		}catch(AuthenticationException ex) {

@@ -1,12 +1,10 @@
-package app.service;
+package app.auth;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import app.entity.Usuario;
-import app.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
@@ -43,7 +41,7 @@ public class UsuarioService {
 		this.usuarioRepository.deleteById(idUsuario);
 		return "Usuario deletado";
 	}
-	public List<Usuario> findByEmail(String emailUsuario){
+	public Optional<Usuario> findByEmail(String emailUsuario){
 		return this.usuarioRepository.findByEmailUsuario(emailUsuario);
 	}
 	public List<Usuario> findByClienteNome(String clienteNome){

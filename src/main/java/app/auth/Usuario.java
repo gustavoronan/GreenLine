@@ -1,16 +1,21 @@
-package app.entity;
+package app.auth;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import app.entity.Carrinho;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +28,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Usuario {
+public class Usuario implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +37,14 @@ public class Usuario {
 	private String emailUsuario;
 	@NotBlank(message = "Senha do cliente nao pode estar vazio")
 	private String senhaUsuario;
+	private String role;
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<GrantedAuthority> authorities = new ArrayList<>();
+	    authorities.add(new SimpleGrantedAuthority(this.role));
+	    return authorities;
+	}
 	
 	//relacao de um cliente para muitas vendas
 		@OneToMany(mappedBy = "usuario")
@@ -43,4 +56,67 @@ public class Usuario {
 		//@JoinColumn(name = "id_cliente")//Define a coluna de chave estrangeira na tabela de Usuario
 		private Cliente cliente;*/
 
+		
+		@Override
+		public String getPassword() {
+			// TODO Auto-generated method stub
+			return emailUsuario;
+		}
+
+		@Override
+		public String getUsername() {
+			// TODO Auto-generated method stub
+			return senhaUsuario;
+		}
+
+		@Override
+		public boolean isAccountNonExpired() {
+			// TODO Auto-generated method stub
+			return true;
+		}
+
+		@Override
+		public boolean isAccountNonLocked() {
+			// TODO Auto-generated method stub
+			return true;
+		}
+
+		@Override
+		public boolean isCredentialsNonExpired() {
+			// TODO Auto-generated method stub
+			return true;
+		}
+
+		@Override
+		public boolean isEnabled() {
+			// TODO Auto-generated method stub
+			return true;
+		}
+
+		
+		
+		
+		public Long getId() {
+			return idUsuario;
+		}
+
+		public void setId(Long id) {
+			this.idUsuario = id;
+		}
+
+		public String getRole() {
+			return role;
+		}
+
+		public void setRole(String role) {
+			this.role = role;
+		}
+
+		public void setUsername(String username) {
+			this.senhaUsuario = username;
+		}
+
+		public void setPassword(String password) {
+			this.emailUsuario = password;
+		}
 }

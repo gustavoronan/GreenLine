@@ -123,7 +123,6 @@ public class UsuarioController {
 		   try {
 				return ResponseEntity.ok(usuarioService.login(autenticador));
 			} catch (Exception e) {	
-				System.out.println(e.getMessage());
 				return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);		
 
 			}

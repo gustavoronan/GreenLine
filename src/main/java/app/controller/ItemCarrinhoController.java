@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -101,6 +102,7 @@ public class ItemCarrinhoController {
 
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("/getCarrinhoByUser")
 	public ResponseEntity <Carrinho> getCarrinhoByUser(@RequestParam long idUsuario){
 
@@ -108,7 +110,7 @@ public class ItemCarrinhoController {
 			Carrinho carrinho = this.itemCarrinhoService.getCarrinhoByUser(idUsuario);
 			return new ResponseEntity<>(carrinho, HttpStatus.CREATED);
 		} catch (Exception e) {
-			//System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
 			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);		
 
 		}

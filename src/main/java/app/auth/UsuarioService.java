@@ -4,14 +4,54 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import app.config.JwtServiceGenerator;
 
 @Service
 public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+	@Autowired
+    private JwtServiceGenerator jwtService;
+    
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    
+    @Autowired
+    private BCryptPasswordEncoder bCrypt;
+
+    
+    
+    public String login(Autenticador autenticador) {
+        // Autentica o usuário
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                		autenticador.getUsername(),
+                		autenticador.getPassword()
+                )
+        );
+        
+        // Busca o usuário no repositório
+        Usuario user = usuarioRepository.findByEmailUsuario(autenticador.getUsername())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        // Gera o token JWT
+        String jwtToken = jwtService.generateToken(user);
+        
+        return jwtToken;
+    }
+    
+	
 	public String save (Usuario usuario) {
+		
+		String senhaCriptografada = this.bCrypt.encode(usuario.getSenhaUsuario());
+		usuario.setSenhaUsuario(senhaCriptografada);
+		
 		this.usuarioRepository.save(usuario);
 		return usuario.getEmailUsuario() + " Foi registrado";
 	}

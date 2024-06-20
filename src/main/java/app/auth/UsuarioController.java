@@ -119,14 +119,14 @@ public class UsuarioController {
 	
 
 	   @PostMapping("/login")
-	    public ResponseEntity<Usuario> login(@RequestBody Usuario usuario) {
-	        Optional<Usuario> usuarioOpt = usuarioService.findByEmail(usuario.getEmailUsuario());
-	        
-	        if (usuarioOpt.isPresent() && usuarioOpt.get().getSenhaUsuario().equals(usuario.getSenhaUsuario())) {
-	            return new ResponseEntity<>(usuarioOpt.get(), HttpStatus.OK);
-	        } else {
-	            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-	        }
+	    public ResponseEntity<String> login(@RequestBody Autenticador autenticador) {
+		   try {
+				return ResponseEntity.ok(usuarioService.login(autenticador));
+			} catch (Exception e) {	
+				System.out.println(e.getMessage());
+				return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);		
+
+			}
 	    }
     
 

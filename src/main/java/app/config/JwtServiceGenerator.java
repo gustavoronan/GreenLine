@@ -26,7 +26,7 @@ public class JwtServiceGenerator {
 	  //AQUI VOCÊ PODE COLOCAR O QUE MAIS VAI COMPOR O PAYLOAD DO TOKEN
       Map<String, Object> extraClaims = new HashMap<>();
       extraClaims.put("username", userDetails.getUsername());
-      extraClaims.put("id", userDetails.getId().toString());
+      extraClaims.put("id", userDetails.getIdUsuario());
       extraClaims.put("role", userDetails.getRole());
       //verificar com o professor como passar o email para o payload
       

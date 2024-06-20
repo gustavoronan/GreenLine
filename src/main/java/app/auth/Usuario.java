@@ -39,13 +39,8 @@ public class Usuario implements UserDetails {
 	private String senhaUsuario;
 	private String role;
 	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> authorities = new ArrayList<>();
-	    authorities.add(new SimpleGrantedAuthority(this.role));
-	    return authorities;
-	}
 	
+
 	//relacao de um cliente para muitas vendas
 		@OneToMany(mappedBy = "usuario")
 		@JsonIgnoreProperties("usuario")
@@ -57,27 +52,41 @@ public class Usuario implements UserDetails {
 		private Cliente cliente;*/
 
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		/* métodos específicos do spring securiyt*/
+		
+		@Override
+		public Collection<? extends GrantedAuthority> getAuthorities() {
+			List<GrantedAuthority> authorities = new ArrayList<>();
+		    authorities.add(new SimpleGrantedAuthority(this.role));
+		    return authorities;
+		}
+		
+		
 		@Override
 		public String getPassword() {
-			// TODO Auto-generated method stub
-			return emailUsuario;
-		}
-
-		@Override
-		public String getUsername() {
-			// TODO Auto-generated method stub
 			return senhaUsuario;
 		}
 
 		@Override
+		public String getUsername() {
+			return emailUsuario;
+		}
+
+		@Override
 		public boolean isAccountNonExpired() {
-			// TODO Auto-generated method stub
 			return true;
 		}
 
 		@Override
 		public boolean isAccountNonLocked() {
-			// TODO Auto-generated method stub
 			return true;
 		}
 
@@ -89,34 +98,8 @@ public class Usuario implements UserDetails {
 
 		@Override
 		public boolean isEnabled() {
-			// TODO Auto-generated method stub
 			return true;
 		}
 
-		
-		
-		
-		public Long getId() {
-			return idUsuario;
-		}
 
-		public void setId(Long id) {
-			this.idUsuario = id;
-		}
-
-		public String getRole() {
-			return role;
-		}
-
-		public void setRole(String role) {
-			this.role = role;
-		}
-
-		public void setUsername(String username) {
-			this.senhaUsuario = username;
-		}
-
-		public void setPassword(String password) {
-			this.emailUsuario = password;
-		}
 }

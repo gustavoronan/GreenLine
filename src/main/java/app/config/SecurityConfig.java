@@ -39,7 +39,9 @@ public class SecurityConfig  {
 				.requestMatchers("/api/usuario/login").permitAll()// pode ser acessador sem logar
 				.requestMatchers("/api/usuario/save").permitAll()// pode ser acessador sem logar
 				.requestMatchers("/api/produto/listAll").permitAll()// pode ser acessador sem logar
-				.requestMatchers("/api/categoria/listAll").permitAll()// pode ser acessador sem logar
+				.requestMatchers("/api/categoria/listAll").permitAll()
+				//.requestMatchers("/api/itemcarrinho/getCarrinhoByUser").permitAll()
+				.requestMatchers("/api/carrinho/save").permitAll()// pode ser acessador por USER
 				.anyRequest().authenticated())
 		.authenticationProvider(authenticationProvider)
 		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

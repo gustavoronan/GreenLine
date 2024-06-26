@@ -15,6 +15,8 @@ import app.repository.ProdutoRepository;
 import jakarta.validation.Valid;
 import dto.MesValorDTO;
 
+import java.time.LocalDate;
+
 @Service
 public class CarrinhoService {
 
@@ -26,6 +28,9 @@ public class CarrinhoService {
 	private ItemCarrinhoService itemCarrinhoService;
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	
+//	private Date dataCarrinho;
 	
 	//metodo para calcular o valor final do carrinho automaticamente 
 	public double valorTotalCarrinho(@Valid List<ItemCarrinho> itemCarrinho) {
@@ -41,7 +46,7 @@ public class CarrinhoService {
 		return valorTotal;
 		
 	}
-	
+		
 	public String save (Carrinho carrinho) {
 		// Verifica se o carrinho possui algum item
 	    if (carrinho.getItemCarrinho() == null || carrinho.getItemCarrinho().isEmpty()) {
@@ -61,9 +66,10 @@ public class CarrinhoService {
         double valorFinal = this.valorTotalCarrinho(carrinho.getItemCarrinho());
         carrinho.setValorCarrinho(valorFinal);
         carrinho.setStatus("Encerrado");
+        carrinho.setDataCarrinho(LocalDate.now());
         //salva o carrinho no banco de dados 
         this.carrinhoRepository.save(carrinho);
-    
+      
         return carrinho.getValorCarrinho() + "  registrada";
 	}
 	
@@ -164,5 +170,9 @@ public class CarrinhoService {
 
         return dtoResults;
     }
+	
+	public List<Carrinho> getVendasFinalizadas(){
+		return this.carrinhoRepository.getVendasFinalizadas();
+	}
 
 }

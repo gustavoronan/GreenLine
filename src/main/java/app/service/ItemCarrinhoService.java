@@ -78,6 +78,8 @@ public class ItemCarrinhoService {
 	
 	public Carrinho getCarrinhoByUser (long idUsuario) {
 		
+			
+		
 		Usuario usuario = new Usuario();
 		usuario.setIdUsuario(idUsuario);
 		Carrinho carrinho = this.carrinhoRepository.getCarrinhoAbertoDoUsuario(usuario);
@@ -89,9 +91,14 @@ public class ItemCarrinhoService {
 			carrinhoNovo.setDescricaoCarrinho("---");
 			carrinhoNovo.setValorCarrinho(0);
 			this.carrinhoRepository.save(carrinhoNovo);
+			
 			carrinho = this.carrinhoRepository.getCarrinhoAbertoDoUsuario(usuario);
+			//carrinho.setUsuario(null);
+			
 		}
-
 		return carrinho;
+
+	
+
 	}
 }

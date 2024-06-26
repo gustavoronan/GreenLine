@@ -44,7 +44,7 @@ public class Produto {
 	@OneToMany (mappedBy = "produto")
 	private List<ItemCarrinho> itemCarrinho;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(
 			name = "categoriaProduto",
 			joinColumns = @JoinColumn(name = "idProduto"),

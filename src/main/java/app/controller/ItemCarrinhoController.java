@@ -46,7 +46,7 @@ public class ItemCarrinhoController {
 		}
 
 	}
-
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("/listAll")
 	public ResponseEntity <List<ItemCarrinho>> listAll(){
 
@@ -102,17 +102,14 @@ public class ItemCarrinhoController {
 
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN','USER')")
+	//@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("/getCarrinhoByUser")
 	public ResponseEntity <Carrinho> getCarrinhoByUser(@RequestParam long idUsuario){
-
 		try {
 			Carrinho carrinho = this.itemCarrinhoService.getCarrinhoByUser(idUsuario);
 			return new ResponseEntity<>(carrinho, HttpStatus.CREATED);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);		
-
 		}
 
 	}

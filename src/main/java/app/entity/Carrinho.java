@@ -1,6 +1,7 @@
 package app.entity;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -16,7 +17,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,15 +27,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Carrinho {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idCarrinho;
+	
 	@NotBlank (message = " Descricao nao pode estar vazio")
 	private String descricaoCarrinho;
+	
 	@NotNull (message = " Valor nao pode estar nulo")
 	private double valorCarrinho;
 	private String status;
-	private Date dataCarrinho;
+	private LocalDate dataCarrinho;
 	
 	@OneToMany (mappedBy = "carrinho", fetch = FetchType.EAGER)
 	@JsonIgnoreProperties ("carrinho")

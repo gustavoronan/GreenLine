@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,8 @@ public class CarrinhoController {
 	
 	@Autowired
 	private CarrinhoService carrinhoService;
-
+	
+	//@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@PostMapping("/save")
 	public ResponseEntity<String> save(@RequestBody Carrinho carrinho){
 
@@ -154,6 +156,22 @@ public class CarrinhoController {
 		try {
 			
 			List<MesValorDTO> lista = this.carrinhoService.getTotalValorCarrinhoByMonthForLast12Months();
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			
+		}
+		
+	}
+	
+	@GetMapping("/getVendasFinalizadas")
+	public ResponseEntity<List<Carrinho>> getVendasFinalizadas (){
+		
+		try {
+			
+			List<Carrinho> lista = this.carrinhoService.getVendasFinalizadas();
 			return new ResponseEntity<>(lista, HttpStatus.OK);
 			
 		} catch (Exception e) {

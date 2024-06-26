@@ -8,7 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import app.entity.Carrinho;
 import jakarta.persistence.Entity;
@@ -36,6 +38,7 @@ public class Usuario implements UserDetails {
 	@NotBlank(message = "Email do cliente nao pode estar vazio")
 	private String emailUsuario;
 	@NotBlank(message = "Senha do cliente nao pode estar vazio")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String senhaUsuario;
 	private String role;
 	
@@ -63,14 +66,16 @@ public class Usuario implements UserDetails {
 		/* métodos específicos do spring securiyt*/
 		
 		@Override
+		@JsonIgnore
 		public Collection<? extends GrantedAuthority> getAuthorities() {
 			List<GrantedAuthority> authorities = new ArrayList<>();
 		    authorities.add(new SimpleGrantedAuthority(this.role));
 		    return authorities;
 		}
-		
+				
 		
 		@Override
+		@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 		public String getPassword() {
 			return senhaUsuario;
 		}

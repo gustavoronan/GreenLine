@@ -19,7 +19,7 @@ public interface CarrinhoRepository extends JpaRepository<Carrinho, Long> {
 	@Query("FROM Carrinho c WHERE c.valorCarrinho <= :valorCarrinho")
 	public List<Carrinho> buscarVendaAbaixoValor(double valorCarrinho);
 
-	@Query("FROM Carrinho c WHERE c.usuario = :usuario AND c.status = 'Em aberto'")
+	@Query(value = "FROM Carrinho c WHERE c.usuario = :usuario AND c.status = 'Em aberto'")
 	public Carrinho getCarrinhoAbertoDoUsuario(Usuario usuario);
 	
 	 @Query(value = "SELECT DATE_FORMAT(c.data_carrinho, '%Y-%m') AS mes, SUM(c.valor_carrinho) AS valorTotal " +
@@ -30,5 +30,8 @@ public interface CarrinhoRepository extends JpaRepository<Carrinho, Long> {
              "ORDER BY mes", 
              nativeQuery = true)
 	 List<Object[]> findTotalValorCarrinhoByMonthForLast12Months();
+	 
+	@Query(value = "FROM Carrinho c WHERE c.status = 'Encerrado'")
+	public List<Carrinho> getVendasFinalizadas();
 	
 }

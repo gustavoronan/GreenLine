@@ -42,6 +42,7 @@ public class SecurityConfig  {
 				.requestMatchers("/api/categoria/listAll").permitAll()
 				//.requestMatchers("/api/itemcarrinho/getCarrinhoByUser").permitAll()
 				.requestMatchers("/api/carrinho/save").permitAll()// pode ser acessador por USER
+				.requestMatchers("/api/cliente/save").permitAll()
 				.anyRequest().authenticated())
 		.authenticationProvider(authenticationProvider)
 		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

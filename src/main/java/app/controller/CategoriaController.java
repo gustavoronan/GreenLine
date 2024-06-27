@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,6 +32,7 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaService categoriaService;
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/save") 
 	public ResponseEntity<String> save(@Valid @RequestBody Categoria categoria) 
 	{
@@ -44,6 +46,7 @@ public class CategoriaController {
 		}
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{idCategoria}")
 	public ResponseEntity<String> update(@Valid @RequestBody Categoria categoria, @PathVariable long idCategoria){
 		try {
@@ -71,6 +74,7 @@ public class CategoriaController {
 		
 	}
 	
+	
 	@GetMapping("/findById/{idCategoria}")
 	public ResponseEntity<Categoria> findById(@PathVariable long idCategoria){
 		
@@ -85,6 +89,7 @@ public class CategoriaController {
 		
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{idCategoria}")
 	public ResponseEntity<String> delete(@PathVariable long idCategoria){
 		try {

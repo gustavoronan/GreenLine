@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoService produtoService;
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/save")
 	public ResponseEntity<String> save(@RequestBody Produto produto) {
 		try {
@@ -64,6 +66,7 @@ public class ProdutoController {
 		}
 	}
 	
+	@PreAuthorize("hasRole ('ADMIN')")
 	@PutMapping("update/{idProduto}") 
 	public ResponseEntity<String> update(@PathVariable Long idProduto, @RequestBody Produto produto) {
 		
@@ -78,6 +81,7 @@ public class ProdutoController {
 		
 	}
 	
+	@PreAuthorize("hasRole ('ADMIN')")
 	@DeleteMapping("delete/{idProduto}") 
 	public ResponseEntity<String> delete(@PathVariable Long idProduto) {
 		

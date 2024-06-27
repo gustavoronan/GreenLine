@@ -28,8 +28,8 @@ public class CarrinhoController {
 	
 	@Autowired
 	private CarrinhoService carrinhoService;
-	
-	//@PreAuthorize("hasAnyRole('ADMIN','USER')")
+
+	@PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
 	@PostMapping("/save")
 	public ResponseEntity<String> save(@RequestBody Carrinho carrinho){
 
@@ -46,6 +46,7 @@ public class CarrinhoController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/listAll")
 	public ResponseEntity <List<Carrinho>> listAll(){
 
@@ -59,6 +60,7 @@ public class CarrinhoController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
 	@GetMapping("/findById/{idCarrinho}")
 	public ResponseEntity <Carrinho> findById(@PathVariable long idCarrinho){
 
@@ -72,6 +74,7 @@ public class CarrinhoController {
 
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{idCarrinho}")
 	public ResponseEntity<String> update(@RequestBody Carrinho carrinho, @PathVariable long idCarrinho){
 
@@ -86,6 +89,7 @@ public class CarrinhoController {
 
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{idCarrinho}")
 	public ResponseEntity<String> delete(@PathVariable long idCarrinho){
 
@@ -102,6 +106,7 @@ public class CarrinhoController {
 	
 	//consultas DB
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/findByNomeProduto")
 	public ResponseEntity<List<Carrinho>> findByItemCarrinhoProdutoNomeProduto (@RequestParam String nomeProduto){
 		
@@ -117,7 +122,8 @@ public class CarrinhoController {
 		}
 		
 	}
-		
+	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/buscarVendaAcimaValor")
 	public ResponseEntity<List<Carrinho>> buscarVendaAcimaValor (@RequestParam double valorCarrinho){
 		
@@ -134,6 +140,7 @@ public class CarrinhoController {
 		
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/buscarVendaAbaixoValor")
 	public ResponseEntity<List<Carrinho>> buscarVendaAbaixoValor (@RequestParam double valorCarrinho){
 		
@@ -150,6 +157,7 @@ public class CarrinhoController {
 		
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/ListVendasByMonthForLast12Months")
 	public ResponseEntity<List<MesValorDTO>> ListVendasByMonthForLast12Months (){
 		
@@ -166,6 +174,7 @@ public class CarrinhoController {
 		
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/getVendasFinalizadas")
 	public ResponseEntity<List<Carrinho>> getVendasFinalizadas (){
 		

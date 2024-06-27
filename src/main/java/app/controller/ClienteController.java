@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,8 +30,9 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteService clienteService;
-
-	@PostMapping("/save") //ok
+	
+	@PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
+	@PostMapping("/save")
 	public ResponseEntity<String> save(@RequestBody Cliente cliente){
 
 		try {
@@ -49,7 +51,8 @@ public class ClienteController {
 
 	}
 
-	@GetMapping("/listAll") //ok
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/listAll")
 	public ResponseEntity <List<Cliente>> listAll(){
 
 		try {
@@ -62,7 +65,8 @@ public class ClienteController {
 
 	}
 
-	@GetMapping("/findById/{idCliente}") //ok
+	
+	@GetMapping("/findById/{idCliente}")
 	public ResponseEntity <Cliente> findById(@PathVariable long idCliente){
 
 		try {
@@ -75,7 +79,7 @@ public class ClienteController {
 
 	}
 	
-	@GetMapping("/findByUsuarioId/{idUsuario}") //ok
+	@GetMapping("/findByUsuarioId/{idUsuario}")
 	public ResponseEntity <Cliente> findByUsuarioId(@PathVariable long idUsuario){
 
 		try {
@@ -90,7 +94,8 @@ public class ClienteController {
 
 	}
 	
-	@PutMapping("/update/{idCliente}") //ok
+	@PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
+	@PutMapping("/update/{idCliente}") 
 	public ResponseEntity<String> update(@Valid @RequestBody Cliente cliente, @PathVariable long idCliente){
 
 		try {
@@ -104,7 +109,8 @@ public class ClienteController {
 
 	}
 	
-	@DeleteMapping("/delete/{idCliente}") //ok
+	@PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
+	@DeleteMapping("/delete/{idCliente}")
 	public ResponseEntity<String> update(@PathVariable long idCliente){
 
 		try {

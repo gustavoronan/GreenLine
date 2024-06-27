@@ -30,6 +30,7 @@ public class ItemCarrinhoController {
 	@Autowired
 	private ItemCarrinhoService itemCarrinhoService;
 
+	@PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
 	@PostMapping("/save")
 	public ResponseEntity<String> save(@RequestBody ItemCarrinho itemCarrinho){
 
@@ -60,6 +61,7 @@ public class ItemCarrinhoController {
 
 	}
 
+	
 	@GetMapping("/findById/{idItem}")
 	public ResponseEntity <ItemCarrinho> findById(@PathVariable long idItem){
 
@@ -73,6 +75,7 @@ public class ItemCarrinhoController {
 
 	}
 	
+	@PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
 	@PutMapping("/update/{idItem}")
 	public ResponseEntity<String> update(@RequestBody ItemCarrinho itemCarrinho, @PathVariable long idItem){
 
@@ -87,7 +90,7 @@ public class ItemCarrinhoController {
 
 	}
 	
-	
+	@PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
 	@DeleteMapping("/delete/{idItem}")
 	public ResponseEntity<String> delete(@PathVariable long idItem){
 
@@ -102,7 +105,7 @@ public class ItemCarrinhoController {
 
 	}
 	
-	//@PreAuthorize("hasAnyRole('ADMIN','USER')")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
 	@GetMapping("/getCarrinhoByUser")
 	public ResponseEntity <Carrinho> getCarrinhoByUser(@RequestParam long idUsuario){
 		try {

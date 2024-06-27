@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,6 +33,7 @@ public class FornecedorController {
         @Autowired
         private FornecedorService fornecedorService;
 
+        @PreAuthorize("hasRole('ADMIN')")
         @PostMapping("/save")
         public ResponseEntity<String> save(@Valid @RequestBody Fornecedor fornecedor) {
     	
@@ -48,6 +50,7 @@ public class FornecedorController {
             }
         }
 
+        @PreAuthorize("hasRole('ADMIN')")
         @PutMapping("/update/{idFornecedor}")
         public ResponseEntity<String> update(@RequestBody Fornecedor fornecedor, @PathVariable long idFornecedor) {
             try {
@@ -58,6 +61,7 @@ public class FornecedorController {
             }
         }
         
+        @PreAuthorize("hasRole('ADMIN')")
         @GetMapping("/listAll")
         public ResponseEntity<List<Fornecedor>> listAll (){
 
@@ -74,6 +78,7 @@ public class FornecedorController {
 
         }
 
+        @PreAuthorize("hasRole('ADMIN')")
         @GetMapping("/findById/{idFornecedor}")
         public ResponseEntity<Fornecedor> findById(@PathVariable long idFornecedor){
 
@@ -88,6 +93,7 @@ public class FornecedorController {
 
         }
 
+        @PreAuthorize("hasRole('ADMIN')")
         @DeleteMapping("/delete/{idFornecedor}")
         public ResponseEntity<String> delete(@PathVariable long idFornecedor){
 
@@ -103,6 +109,7 @@ public class FornecedorController {
 
         //-------
 
+        @PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
         @GetMapping("/findByNomeFornecedor")
         public ResponseEntity<List<Fornecedor>> findByNomeFornecedor (@RequestParam String nomeFornecedor){
 

@@ -25,11 +25,8 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idCliente;
-	@NotBlank(message = "Nome do cliente nao pode estar vazio")
 	private String nomeCliente;
-	@NotBlank(message = "Telefone do cliente nao pode estar vazio")
 	private String telefoneCliente;
-	@NotBlank(message = "endereço do cliente nao pode estar vazio")
 	private String enderecoCliente;
 
 	//relacao de um cliente para um usuario

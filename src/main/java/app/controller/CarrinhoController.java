@@ -23,7 +23,7 @@ import dto.MesValorDTO;
 
 @RequestMapping("/api/carrinho")
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class CarrinhoController {
 	
 	@Autowired

@@ -23,7 +23,7 @@ import app.service.ItemCarrinhoService;
 
 @RequestMapping("/api/itemcarrinho")
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 
 public class ItemCarrinhoController {
 	

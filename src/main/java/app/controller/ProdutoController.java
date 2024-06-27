@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @RequestMapping("/api/produto")
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 
 public class ProdutoController {
 	

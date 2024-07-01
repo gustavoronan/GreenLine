@@ -40,7 +40,6 @@ public class SecurityConfig  {
 				.requestMatchers("/api/usuario/save").permitAll()// pode ser acessador sem logar
 				.requestMatchers("/api/produto/listAll").permitAll()// pode ser acessador sem logar
 				.requestMatchers("/api/categoria/listAll").permitAll()
-				.requestMatchers("/api/cliente/update/{idCliente}").permitAll()
 				.anyRequest().authenticated())
 		.authenticationProvider(authenticationProvider)
 		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

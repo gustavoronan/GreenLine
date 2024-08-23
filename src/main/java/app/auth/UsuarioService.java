@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import app.config.JwtServiceGenerator;
+import app.repository.LogRepository;
+import app.service.LogService;
 
 @Service
 public class UsuarioService {
@@ -24,6 +26,10 @@ public class UsuarioService {
     
     @Autowired
     private BCryptPasswordEncoder bCrypt;
+    
+    @Autowired
+    LogService logService;
+    
 
     
     
@@ -53,6 +59,8 @@ public class UsuarioService {
 		usuario.setSenhaUsuario(senhaCriptografada);
 		
 		this.usuarioRepository.save(usuario);
+		// Gerar log antes de salvar o produto
+        logService.gerarLog("SAVE", "Usuario", usuario.getIdUsuario(), null);
 		return usuario.getEmailUsuario() + " Foi registrado";
 	}
 	
@@ -73,12 +81,15 @@ public class UsuarioService {
 	public String update (Usuario usuario, long idUsuario) {
 		usuario.setIdUsuario(idUsuario);
 		this.usuarioRepository.save(usuario);
+		// Gerar log para a operação de atualização
+        logService.gerarLog("UPDATE", "Usuario", idUsuario, null);
 		return "O " + usuario.getEmailUsuario() + " Foi atualizado";
 		
 	}
 	
 	public String delete (long idUsuario) {
 		this.usuarioRepository.deleteById(idUsuario);
+		logService.gerarLog("DELETE", "Usuario", idUsuario, null);
 		return "Usuario deletado";
 	}
 	public Optional<Usuario> findByEmail(String emailUsuario){

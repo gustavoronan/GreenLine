@@ -3,6 +3,7 @@ package app.service;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,9 @@ public class LogService {
         log.setDetalhes(detalhes);
              
         logRepository.save(log);
+	}
+	
+	public List<Log> listAll(){
+		return logRepository.findAll();
 	}
 }

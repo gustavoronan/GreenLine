@@ -1,6 +1,7 @@
 package app.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,12 +22,14 @@ public class ProdutoService {
 
 	
 	 public String save(Produto produto) {
-
-	        // Gerar log antes de salvar o produto
-	        logService.gerarLog("SAVE", "Produto", produto.getIdProduto(), null);
-
 	        // Salvar o produto no banco de dados
 	        produtoRepository.save(produto);
+	        // Gerar log antes de salvar o produto
+	        logService.gerarLog("SAVE", "Produto", produto.getIdProduto(), null);
+	        String detalheProduto = produto.getNomeProduto();
+	        String formato = "o produto: %s foi adicionado";
+	        String detalhes = String.format(formato, detalheProduto);
+	        System.out.println("produto adicionado: " + produto.getNomeProduto());
 
 	        return produto.getNomeProduto() + " salvo com sucesso!";
 	    }
@@ -65,8 +68,28 @@ public class ProdutoService {
 	
 	
 	public String delete(long idProduto) {
-		logService.gerarLog("DELETE", "Produto", idProduto, null);
-		produtoRepository.deleteById(idProduto);
-		return "Produto deletado com sucesso!";
+	    // Primeiro, buscar o produto do banco de dados
+	    Optional<Produto> produtoOptional = produtoRepository.findById(idProduto);
+	    
+	    // Verificar se o produto existe
+	    if (produtoOptional.isPresent()) {
+	        Produto produto = produtoOptional.get();
+	        String detalheProduto = produto.getNomeProduto();
+	        
+	        // Agora que temos o produto, podemos deletá-lo
+	        produtoRepository.deleteById(idProduto);
+	        
+	        // Gerar log da exclusão
+	        String formato = "O produto: %s foi deletado";
+	        String detalhes = String.format(formato, detalheProduto);
+	        logService.gerarLog("DELETE", "Produto", idProduto, detalhes);
+	        
+	        System.out.println("Produto deletado: " + detalheProduto);
+	        return "Produto deletado com sucesso!";
+	    } else {
+	        // Caso o produto não exista
+	        return "Produto não encontrado!";
+	    }
 	}
+
 }

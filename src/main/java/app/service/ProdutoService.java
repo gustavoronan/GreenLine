@@ -25,10 +25,10 @@ public class ProdutoService {
 	        // Salvar o produto no banco de dados
 	        produtoRepository.save(produto);
 	        // Gerar log antes de salvar o produto
-	        logService.gerarLog("SAVE", "Produto", produto.getIdProduto(), null);
 	        String detalheProduto = produto.getNomeProduto();
-	        String formato = "o produto: %s foi adicionado";
+	        String formato = "o produto: %s, foi adicionado";
 	        String detalhes = String.format(formato, detalheProduto);
+	        logService.gerarLog("SAVE", "Produto", produto.getIdProduto(), detalhes);
 	        System.out.println("produto adicionado: " + produto.getNomeProduto());
 
 	        return produto.getNomeProduto() + " salvo com sucesso!";
@@ -68,18 +68,18 @@ public class ProdutoService {
 	
 	
 	public String delete(long idProduto) {
-	    // Primeiro, buscar o produto do banco de dados
+	    
 	    Optional<Produto> produtoOptional = produtoRepository.findById(idProduto);
 	    
-	    // Verificar se o produto existe
+	   
 	    if (produtoOptional.isPresent()) {
 	        Produto produto = produtoOptional.get();
 	        String detalheProduto = produto.getNomeProduto();
 	        
-	        // Agora que temos o produto, podemos deletá-lo
+	        
 	        produtoRepository.deleteById(idProduto);
 	        
-	        // Gerar log da exclusão
+	        
 	        String formato = "O produto: %s foi deletado";
 	        String detalhes = String.format(formato, detalheProduto);
 	        logService.gerarLog("DELETE", "Produto", idProduto, detalhes);
@@ -87,7 +87,7 @@ public class ProdutoService {
 	        System.out.println("Produto deletado: " + detalheProduto);
 	        return "Produto deletado com sucesso!";
 	    } else {
-	        // Caso o produto não exista
+	        
 	        return "Produto não encontrado!";
 	    }
 	}

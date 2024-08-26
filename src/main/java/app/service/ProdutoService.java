@@ -28,7 +28,7 @@ public class ProdutoService {
 	        String detalheProduto = produto.getNomeProduto();
 	        String formato = "o produto: %s, foi adicionado";
 	        String detalhes = String.format(formato, detalheProduto);
-	        logService.gerarLog("SAVE", "Produto", produto.getIdProduto(), detalhes);
+	        logService.gerarLog("SAVE", "Produto", produto.getIdProduto(), detalhes, detalheProduto);
 	        System.out.println("produto adicionado: " + produto.getNomeProduto());
 
 	        return produto.getNomeProduto() + " salvo com sucesso!";
@@ -60,8 +60,7 @@ public class ProdutoService {
 
         // Salvar o produto atualizado no repositório
         produtoRepository.save(produtoAtualizado);
-        System.out.println("Detalhes do log: " + detalhes);
-        logService.gerarLog("UPDATE", "Produto", idProduto, detalhes);
+        logService.gerarLog("UPDATE", "Produto", idProduto, detalhes, nomeNovo);
 
         return "O produto " + produtoAtualizado.getNomeProduto() + " foi atualizado com sucesso!";
     }
@@ -75,19 +74,16 @@ public class ProdutoService {
 	    if (produtoOptional.isPresent()) {
 	        Produto produto = produtoOptional.get();
 	        String detalheProduto = produto.getNomeProduto();
-	        
-	        
 	        produtoRepository.deleteById(idProduto);
 	        
-	        
+	      
 	        String formato = "O produto: %s foi deletado";
 	        String detalhes = String.format(formato, detalheProduto);
-	        logService.gerarLog("DELETE", "Produto", idProduto, detalhes);
+	        logService.gerarLog("DELETE", "Produto", idProduto, detalhes, detalheProduto);
 	        
 	        System.out.println("Produto deletado: " + detalheProduto);
 	        return "Produto deletado com sucesso!";
-	    } else {
-	        
+	    } else {     
 	        return "Produto não encontrado!";
 	    }
 	}

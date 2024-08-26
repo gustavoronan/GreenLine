@@ -17,7 +17,7 @@ public class LogService {
 	@Autowired
 	LogRepository logRepository;
 	
-	public void gerarLog (String acao, String entity, Long entityId, String detalhes) {
+	public void gerarLog (String acao, String entity, Long entityId, String detalhes, String logName) {
 		
 		Log log = new Log();
 		log.setAcao(acao);
@@ -25,7 +25,7 @@ public class LogService {
 		log.setEntity(entity);
         log.setIdEntity(entityId);
         log.setDetalhes(detalhes);
-             
+        log.setLogName(logName);
         logRepository.save(log);
 	}
 	

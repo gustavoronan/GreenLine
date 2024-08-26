@@ -60,7 +60,7 @@ public class UsuarioService {
 		
 		this.usuarioRepository.save(usuario);
 		// Gerar log antes de salvar o produto
-        logService.gerarLog("SAVE", "Usuario", usuario.getIdUsuario(), null);
+        logService.gerarLog("SAVE", "Usuario", usuario.getIdUsuario(), null, null);
 		return usuario.getEmailUsuario() + " Foi registrado";
 	}
 	
@@ -80,17 +80,29 @@ public class UsuarioService {
 	
 	public String update (Usuario usuario, long idUsuario) {
 		usuario.setIdUsuario(idUsuario);
+		String emailUser = usuario.getEmailUsuario();
 		this.usuarioRepository.save(usuario);
 		// Gerar log para a operação de atualização
-        logService.gerarLog("UPDATE", "Usuario", idUsuario, null);
+        logService.gerarLog("UPDATE", "Usuario", idUsuario, null, emailUser);
 		return "O " + usuario.getEmailUsuario() + " Foi atualizado";
 		
 	}
 	
 	public String delete (long idUsuario) {
+	
+		Optional<Usuario> usuarioOptional = usuarioRepository.findById(idUsuario);
+		
+		if(usuarioOptional.isPresent()) {
+		Usuario usuario = usuarioOptional.get();
+		String emailUser = usuario.getEmailUsuario();
 		this.usuarioRepository.deleteById(idUsuario);
-		logService.gerarLog("DELETE", "Usuario", idUsuario, null);
+		
+		logService.gerarLog("DELETE", "Usuario", idUsuario, null, emailUser);
 		return "Usuario deletado";
+		}else
+			return "usuario nao encontrado";
+		
+		
 	}
 	public Optional<Usuario> findByEmail(String emailUsuario){
 		return this.usuarioRepository.findByEmailUsuario(emailUsuario);

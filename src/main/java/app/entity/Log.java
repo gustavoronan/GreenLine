@@ -21,6 +21,7 @@ public class Log {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idLog;
 	private String emailUsuario;
+	private String roleUsuario;
 	private LocalDateTime timestamp;
 	private String acao;
 	private String entity;

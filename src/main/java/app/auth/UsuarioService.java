@@ -59,14 +59,14 @@ public class UsuarioService {
 		usuario.setSenhaUsuario(senhaCriptografada);
 		
 		this.usuarioRepository.save(usuario);
-		// Gerar log antes de salvar o produto
+
         logService.gerarLogCadUsuario("SAVE", "Usuario", usuario.getIdUsuario(), null, null, usuario.getEmailUsuario(), usuario.getRole());
+        
 		return usuario.getEmailUsuario() + " Foi registrado";
 	}
 	
 	public List <Usuario> findAll () {
-	return this.usuarioRepository.findAll();
-		
+		return this.usuarioRepository.findAll();
 	}
 	
 	
@@ -80,10 +80,10 @@ public class UsuarioService {
 	
 	public String update (Usuario usuario, long idUsuario) {
 		usuario.setIdUsuario(idUsuario);
-		String emailUser = usuario.getEmailUsuario();
 		this.usuarioRepository.save(usuario);
-		// Gerar log para a operação de atualização
-        logService.gerarLog("UPDATE", "Usuario", idUsuario, null, emailUser);
+		
+        logService.gerarLog("UPDATE", "Usuario", idUsuario, null, null);
+        
 		return "O " + usuario.getEmailUsuario() + " Foi atualizado";
 		
 	}
@@ -93,12 +93,10 @@ public class UsuarioService {
 		Optional<Usuario> usuarioOptional = usuarioRepository.findById(idUsuario);
 		
 		if(usuarioOptional.isPresent()) {
-		Usuario usuario = usuarioOptional.get();
-		String emailUser = usuario.getEmailUsuario();
-		this.usuarioRepository.deleteById(idUsuario);
+			this.usuarioRepository.deleteById(idUsuario);
 		
-		logService.gerarLog("DELETE", "Usuario", idUsuario, null, emailUser);
-		return "Usuario deletado";
+			logService.gerarLog("DELETE", "Usuario", idUsuario, null, null);
+			return "Usuario deletado";
 		}else
 			return "usuario nao encontrado";
 		

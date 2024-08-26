@@ -40,6 +40,12 @@ public class CategoriaService {
 	public String update (long id, Categoria categoria) {
 		categoria.setIdCategoria(id);
 		this.categoriaRepository.save(categoria);
+		
+		String detalheCategoria = categoria.getDescricao();
+        String formato = "a descrição: %s, foi Alterada";
+        String detalhes = String.format(formato, detalheCategoria);
+        logService.gerarLog("UPDATE", "Categoria", categoria.getIdCategoria(), detalhes, detalheCategoria);
+		
 		return categoria.getDescricao()+" Atualizada com sucesso";
 	}
 	

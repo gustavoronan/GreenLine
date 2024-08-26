@@ -1,5 +1,6 @@
 package app.service;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,10 @@ public class CategoriaService {
 		// Salvar o produto no banco de dados
         categoriaRepository.save(categoria);
         // Gerar log antes de salvar o produto
-        logService.gerarLog("SAVE", "Produto", categoria.getIdCategoria(), null);
+        String detalheCategoria = categoria.getDescricao();
+        String formato = "a descrição: %s, foi criada";
+        String detalhes = String.format(formato, detalheCategoria);
+        logService.gerarLog("SAVE", "Categoria", categoria.getIdCategoria(), detalhes, detalheCategoria);
 		return categoria.getDescricao()+" descrição adicionada";
 	}
 	
@@ -40,12 +44,37 @@ public class CategoriaService {
 	}
 	
 	public String delete (long idCategoria) {
-		this.categoriaRepository.deleteById(idCategoria);;
-		return " Categoria deletada com sucesso";
+		this.categoriaRepository.deleteById(idCategoria);
+		
+		    
+		    Optional<Categoria> categoriaOp = categoriaRepository.findById(idCategoria);
+		    
+		   
+		    if (categoriaOp.isPresent()) {
+		        Categoria categoria = categoriaOp.get();
+		        String detalheCategoria = categoria.getDescricao();
+		        
+		        
+		        categoriaRepository.deleteById(idCategoria);
+		        
+		        
+		        String formato = "A categoria: %s foi deletado";
+		        String detalhes = String.format(formato, detalheCategoria);
+		        logService.gerarLog("DELETE", "Categoria", idCategoria, detalhes, detalheCategoria);
+		        
+		        System.out.println("Categoria deletado: " + detalheCategoria);
+		        return "Produto deletado com sucesso!";
+		    } else {
+		        
+		        return "Produto não encontrado!";
+		    }
+		
 	}
+	
 	
 	public List<Categoria> findByDescricao(String descricao){
 		return this.categoriaRepository.findByDescricao(descricao);
 	}
 	
 }
+

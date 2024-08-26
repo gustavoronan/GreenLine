@@ -26,4 +26,5 @@ public class Log {
 	private String entity;
 	private long idEntity;
 	private String detalhes;
+	private String logName;
 }

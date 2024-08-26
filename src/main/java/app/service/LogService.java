@@ -49,8 +49,8 @@ public class LogService {
         log.setIdEntity(entityId);
         log.setDetalhes(detalhes);
         log.setLogName(logName);
-        log.setDetalhes(email);
-        log.setLogName(role);
+        log.setEmailUsuario(email);
+        log.setRoleUsuario(role);
              
         logRepository.save(log);
 	}

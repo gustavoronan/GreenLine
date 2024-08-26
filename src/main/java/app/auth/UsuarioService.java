@@ -80,6 +80,7 @@ public class UsuarioService {
 	
 	public String update (Usuario usuario, long idUsuario) {
 		usuario.setIdUsuario(idUsuario);
+		
 		this.usuarioRepository.save(usuario);
 		
         logService.gerarLog("UPDATE", "Usuario", idUsuario, null, null);
@@ -93,9 +94,9 @@ public class UsuarioService {
 		Optional<Usuario> usuarioOptional = usuarioRepository.findById(idUsuario);
 		
 		if(usuarioOptional.isPresent()) {
-			this.usuarioRepository.deleteById(idUsuario);
-		
 			logService.gerarLog("DELETE", "Usuario", idUsuario, null, null);
+		
+			this.usuarioRepository.deleteById(idUsuario);
 			return "Usuario deletado";
 		}else
 			return "usuario nao encontrado";

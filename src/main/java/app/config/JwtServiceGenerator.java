@@ -8,14 +8,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import app.auth.Autenticador;
 import app.auth.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class JwtServiceGenerator {  
@@ -29,7 +35,6 @@ public class JwtServiceGenerator {
       extraClaims.put("emailUsuario", userDetails.getUsername());
       extraClaims.put("idUsuario", userDetails.getIdUsuario());
       extraClaims.put("role", userDetails.getRole());
-      //verificar com o professor como passar o email para o payload
       
       return Jwts
               .builder()
@@ -78,5 +83,21 @@ public class JwtServiceGenerator {
       final Claims claims = extractAllClaims(token);
       return claimsResolver.apply(claims);
   }
+  
+  public String extractEmail(String token) {
+	    return extractClaim(token, claims -> claims.get("emailUsuario", String.class));
+	}
 
+  public String getEmailFromToken() {
+	  HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+      String token = request.getHeader("Authorization").substring(7); 
+      return extractEmail(token);
+  }
+  
+  public String getRoleFromToken() {
+      HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+      String token = request.getHeader("Authorization").substring(7);
+      return extractClaim(token, claims -> claims.get("role", String.class));
+  }
+  
 }

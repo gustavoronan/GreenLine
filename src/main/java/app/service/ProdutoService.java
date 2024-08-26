@@ -73,12 +73,11 @@ public class ProdutoService {
 	    if (produtoOptional.isPresent()) {
 	        Produto produto = produtoOptional.get();
 	        String detalheProduto = produto.getNomeProduto();
-	        produtoRepository.deleteById(idProduto);
-	        
-	      
 	        String formato = "O produto: %s foi deletado";
 	        String detalhes = String.format(formato, detalheProduto);
 	        logService.gerarLog("DELETE", "Produto", idProduto, detalhes, detalheProduto);
+	        
+	        produtoRepository.deleteById(idProduto);
 	        
 	        return "Produto deletado com sucesso!";
 	    } else {     

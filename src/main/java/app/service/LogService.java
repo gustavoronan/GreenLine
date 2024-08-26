@@ -14,6 +14,7 @@ import app.repository.LogRepository;
 
 @Service
 public class LogService {
+	
 	@Autowired
 	LogRepository logRepository;
 	@Autowired
@@ -58,4 +59,9 @@ public class LogService {
 	public List<Log> listAll(){
 		return logRepository.findAll();
 	}
+	
+	public List<Log> getLogsByCriterio(LocalDateTime startDate, LocalDateTime endDate, String acao, String roleUsuario, String logName, String entity, String emailUsuario) {
+		return logRepository.findLogsByCriterio(startDate, endDate, acao, roleUsuario, logName, entity, emailUsuario);
+	}
+	
 }

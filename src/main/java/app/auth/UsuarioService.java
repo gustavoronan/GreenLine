@@ -60,7 +60,7 @@ public class UsuarioService {
 		
 		this.usuarioRepository.save(usuario);
 		// Gerar log antes de salvar o produto
-        logService.gerarLog("SAVE", "Usuario", usuario.getIdUsuario(), null, null);
+        logService.gerarLogCadUsuario("SAVE", "Usuario", usuario.getIdUsuario(), null, null, usuario.getEmailUsuario(), usuario.getRole());
 		return usuario.getEmailUsuario() + " Foi registrado";
 	}
 	

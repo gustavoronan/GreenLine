@@ -68,7 +68,6 @@ public class CategoriaService {
 		        String detalhes = String.format(formato, detalheCategoria);
 		        logService.gerarLog("DELETE", "Categoria", idCategoria, detalhes, detalheCategoria);
 		        
-		        System.out.println("Categoria deletado: " + detalheCategoria);
 		        return "Produto deletado com sucesso!";
 		    } else {
 		        

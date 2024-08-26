@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import app.entity.Carrinho;
 import app.entity.ItemCarrinho;
+import app.entity.Produto;
 import app.repository.CarrinhoRepository;
 import app.repository.ItemCarrinhoRepository;
 import app.repository.ProdutoRepository;
@@ -28,6 +29,8 @@ public class CarrinhoService {
 	private ItemCarrinhoService itemCarrinhoService;
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	@Autowired
+	private LogService logService;
 	
 	
 //	private Date dataCarrinho;
@@ -69,6 +72,11 @@ public class CarrinhoService {
         carrinho.setDataCarrinho(LocalDate.now());
         //salva o carrinho no banco de dados 
         this.carrinhoRepository.save(carrinho);
+        
+        Double detalheCarrinho = carrinho.getValorCarrinho();
+        String formato = "compra: %.2f, foi criada";
+        String detalhes = String.format(formato, detalheCarrinho);
+        logService.gerarLog("SAVE", "Carrinho", carrinho.getIdCarrinho(), detalhes, null);
       
         return carrinho.getValorCarrinho() + "  registrada";
 	}
@@ -105,6 +113,8 @@ public class CarrinhoService {
                 // Se não existe, salva como um novo item
                 itemCarrinhoRepository.save(item);
             }
+            
+            
             //adiciona o valor do produto a variavel valorUnitario para manter o registro do valor na compra
     		double valorUnitario = this.itemCarrinhoService.setValor(item.getProduto());
     		item.setValorUnitario(valorUnitario);
@@ -113,7 +123,16 @@ public class CarrinhoService {
 		//chamada do metodo para fazer o calculo do valor final do carrinho antes de persistir o mesmo
 		double valorFinal = this.valorTotalCarrinho(carrinho.getItemCarrinho());
 		carrinho.setValorCarrinho(valorFinal);	
+		
+		Carrinho carrinhoAntigo = carrinhoRepository.findById(idCarrinho).get();
+		Double valorAntigo = carrinhoAntigo.getValorCarrinho();
 		this.carrinhoRepository.save(carrinho);
+		
+		Double detalheCarrinho = carrinho.getValorCarrinho();
+        String formato = "compra alterada valor antigo: %s valor novo: %s";
+        String detalhes = String.format(formato, valorAntigo, detalheCarrinho);
+        logService.gerarLog("UPDATE", "Carrinho", carrinho.getIdCarrinho(), detalhes, null);
+		
 		return " Carrinho " + carrinho.getValorCarrinho() + " Foi atualizado";
 		
 	}
@@ -131,7 +150,13 @@ public class CarrinhoService {
             // Deleta o item do carrinho no banco de dados
             itemCarrinhoRepository.deleteById(item.getIdItem());
         }
-		this.carrinhoRepository.deleteById(idCarrinho);
+		
+		Double detalheCarrinho = carrinho.getValorCarrinho();
+        String formato = "compra: %.2f, foi criada";
+        String detalhes = String.format(formato, detalheCarrinho);
+        logService.gerarLog("DELETE", "Carrinho", carrinho.getIdCarrinho(), detalhes, null);
+        
+        this.carrinhoRepository.deleteById(idCarrinho);
 		return " Venda deletada";
 	}
 	

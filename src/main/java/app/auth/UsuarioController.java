@@ -117,17 +117,17 @@ public class UsuarioController {
 		}
 	}
 	
-
-	   @PostMapping("/login")
-	    public ResponseEntity<String> login(@RequestBody Autenticador autenticador) {
-		   try {
-				return ResponseEntity.ok(usuarioService.login(autenticador));
-			} catch (Exception e) {	
-				return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);		
-
-			}
-	    }
-    
+// trecho comentado para implementar keycloack 
+//	   @PostMapping("/login")
+//	    public ResponseEntity<String> login(@RequestBody Autenticador autenticador) {
+//		   try {
+//				return ResponseEntity.ok(usuarioService.login(autenticador));
+//			} catch (Exception e) {	
+//				return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);		
+//
+//			}
+//	    }
+//    
 
 	@GetMapping("/findByLoginId/{idUsuario}") //ok
 	public ResponseEntity <Usuario> findByLoginId(@PathVariable long idUsuario){

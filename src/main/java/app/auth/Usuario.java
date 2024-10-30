@@ -63,7 +63,7 @@ public class Usuario implements UserDetails {
 		
 		
 		
-		/* métodos específicos do spring securiyt*/
+		/* métodos específicos do spring security*/
 		
 		@Override
 		@JsonIgnore

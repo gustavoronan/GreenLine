@@ -17,46 +17,47 @@ import app.service.LogService;
 public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
-	@Autowired
-    private JwtServiceGenerator jwtService;
-    
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    
-    @Autowired
-    private BCryptPasswordEncoder bCrypt;
+
+// trecho comentado para implementar keycloack 	
+//	@Autowired
+//    private JwtServiceGenerator jwtService;
+//    
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
+//    
+//    @Autowired
+//    private BCryptPasswordEncoder bCrypt;
     
     @Autowired
     LogService logService;
     
 
     
-    
-    public String login(Autenticador autenticador) {
-        // Autentica o usuário
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                		autenticador.getUsername(),
-                		autenticador.getPassword()
-                )
-        );
-        
-        // Busca o usuário no repositório
-        Usuario user = usuarioRepository.findByEmailUsuario(autenticador.getUsername())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
-        // Gera o token JWT
-        String jwtToken = jwtService.generateToken(user);
-        
-        return jwtToken;
-    }
+// trecho comentado para implementar keycloack   
+//    public String login(Autenticador autenticador) {
+//        // Autentica o usuário
+//        authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                		autenticador.getUsername(),
+//                		autenticador.getPassword()
+//                )
+//        );
+//        
+//        // Busca o usuário no repositório
+//        Usuario user = usuarioRepository.findByEmailUsuario(autenticador.getUsername())
+//                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+//
+//        // Gera o token JWT
+//        String jwtToken = jwtService.generateToken(user);
+//        
+//        return jwtToken;
+//    }
     
 	
 	public String save (Usuario usuario) {
 		
-		String senhaCriptografada = this.bCrypt.encode(usuario.getSenhaUsuario());
-		usuario.setSenhaUsuario(senhaCriptografada);
+		//String senhaCriptografada = this.bCrypt.encode(usuario.getSenhaUsuario());
+		//usuario.setSenhaUsuario(senhaCriptografada);
 		
 		this.usuarioRepository.save(usuario);
 

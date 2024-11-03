@@ -33,13 +33,13 @@ import lombok.Setter;
 public class Usuario implements UserDetails {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idUsuario;
 	@NotBlank(message = "Email do cliente nao pode estar vazio")
 	private String emailUsuario;
-	@NotBlank(message = "Senha do cliente nao pode estar vazio")
+	@NotBlank(message = "username do cliente nao pode estar vazio")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	private String senhaUsuario;
+	private String usernameUsuario;
 	private String role;
 	
 	
@@ -77,7 +77,7 @@ public class Usuario implements UserDetails {
 		@Override
 		@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 		public String getPassword() {
-			return senhaUsuario;
+			return usernameUsuario;
 		}
 
 		@Override

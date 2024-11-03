@@ -42,7 +42,7 @@ public class ProdutoController {
 		}
 	}
 	
-	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/listAll")
 	public ResponseEntity<List<Produto>> listAll() {
 		try {

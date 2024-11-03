@@ -14,8 +14,8 @@ public class JWTConverter  implements Converter<Jwt, AbstractAuthenticationToken
 	@Override
     public AbstractAuthenticationToken convert(Jwt jwt) {
 
-        Map<String, Collection<String>> realmAccess = jwt.getClaim("realm_access"); 
-        Collection<String> roles = realmAccess.get("roles");
+		Map<String, Map<String, Collection<String>>> resourceAccess = jwt.getClaim("resource_access");
+	    Collection<String> roles = resourceAccess.get("greenline").get("roles");
         var grants = roles
         .stream()
         .map(role -> new SimpleGrantedAuthority("ROLE_"+ role)).toList();
